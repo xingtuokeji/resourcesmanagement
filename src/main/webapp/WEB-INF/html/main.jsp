@@ -30,13 +30,16 @@
 
         $(function(){
             // 点击切换页面
-            $("#product-type-set").click(function() {
+            $("#user-set").click(function() {
                 $("#frame-id").attr("src", "<%=request.getContextPath()%>/user/findAll");
             });
-            $("#product-set").click(function() {
-                $("#frame-id").attr("src", "<%=request.getContextPath()%>/backend/product/findAll");
+            $("#image-type-set").click(function () {
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/imageType/findAll")
             });
-            $("#user-set").click(function() {
+            $("#image-upload-set").click(function() {
+                $("#frame-id").attr("src", "<%=request.getContextPath()%>/image/main");
+            });
+            $("#adas").click(function() {
                 $("#frame-id").attr("src", "<%=request.getContextPath()%>/backend/customer/findAll");
             });
             $("#manager-set").click(function() {
@@ -71,14 +74,23 @@
                     <ul class="list-group">
                         <!--role_id为1可以显示所有菜单，role_id为2显示模型管理和素材管理菜单-->
                         <c:if test="${currentUser.roleId==1}">
-                            <li class="list-group-item active" name="userSet" id="product-type-set">
+                            <li class="list-group-item active" name="userSet" id="user-set">
                                 <i class="glyphicon glyphicon-lock"></i> &nbsp;系统用户管理
                             </li>
-                            <li class="list-group-item" name="userPic" id="product-set">
-                                <i class="glyphicon glyphicon-facetime-video"></i> &nbsp;模型管理
+                            <li class="list-group-item" name="userPic" id="model-download-set">
+                                <i class="glyphicon glyphicon-envelope"></i> &nbsp;模型查询与下载
                             </li>
-                            <li class="list-group-item" name="userInfo" id="user-set">
-                                <i class="glyphicon glyphicon-user"></i> &nbsp;素材管理
+                            <li class="list-group-item" name="userPic" id="model-parse-set">
+                                <i class="glyphicon glyphicon-apple"></i> &nbsp;模型资源解析
+                            </li>
+                            <li class="list-group-item" name="userInfo" id="image-download-set">
+                                <i class="glyphicon glyphicon-user"></i> &nbsp;素材查询与下载
+                            </li>
+                            <li class="list-group-item" name="userInfo" id="image-type-set">
+                                <i class="glyphicon glyphicon-cloud"></i> &nbsp;素材类别管理
+                            </li>
+                            <li class="list-group-item" name="userPic" id="image-upload-set">
+                                <i class="glyphicon glyphicon-calendar"></i> &nbsp;素材上传
                             </li>
                             <!--todo 待开发-->
                             <li class="list-group-item" name="daikaifa" id="manager-set">
@@ -86,11 +98,11 @@
                             </li>
                         </c:if>
                         <c:if test="${currentUser.roleId==2}">
-                            <li class="list-group-item" name="userPic" id="product-set">
-                                <i class="glyphicon glyphicon-facetime-video"></i> &nbsp;模型管理
+                            <li class="list-group-item" name="userPic" id="model-download-set">
+                                <i class="glyphicon glyphicon-envelope"></i> &nbsp;模型查询与下载
                             </li>
-                            <li class="list-group-item" name="userInfo" id="user-set">
-                                <i class="glyphicon glyphicon-user"></i> &nbsp;素材管理
+                            <li class="list-group-item" name="userInfo" id="image-download-set">
+                                <i class="glyphicon glyphicon-user"></i> &nbsp;素材查询与下载
                             </li>
                             <!--todo 待开发-->
                             <li class="list-group-item" name="daikaifa" id="manager-set">
@@ -103,7 +115,7 @@
                     </ul>
                 </div>
                 <div class="col-xs-10" id="userPanel">
-                    <iframe id="frame-id" src="<%=request.getContextPath()%>/daikaifa/findAll" width="100%" height="100%" frameborder="0" scrolling="no">
+                    <iframe id="frame-id" src="<%=request.getContextPath()%>/user/findAll" width="100%" height="100%" frameborder="0" scrolling="no">
                     </iframe>
                 </div>
 

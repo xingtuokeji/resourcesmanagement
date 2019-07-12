@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="zh">
@@ -21,7 +22,7 @@
                 currentPage:${pageInfo.pageNum},
                 totalPages:${pageInfo.pages},
                 pageUrl:function(type,page, current){
-                    return '<%=request.getContextPath()%>/user/findAll?pageNum='+page;
+                    return '<%=request.getContextPath()%>/imageType/findAll?pageNum='+page;
                 },
                 itemTexts: function (type, page, current) {
                     switch (type) {
@@ -39,18 +40,17 @@
                 }
             });
 
-            $('#addUser').click(function () {
+            $('#addImageType').click(function () {
                 $.ajax({
                     type:'POST',
                     dataType:'json',
-                    url:'<%=request.getContextPath()%>/user/add',
+                    url:'<%=request.getContextPath()%>/imageType/add',
                     contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-                    data:{loginName:$('#loginName').val(),loginPassword:$('#loginPassword').val(),name:$('#name').val(),roleId:$('#roleId').val()
-                    ,enableStatus:$('#enableStatus').val()},
+                    data:{'imageTypeName':$('#imageTypeName1').val()},
                     success:function (data) {
                         if(data.success){
                             console.log("添加成功！");
-                            window.location.href="/resourcesmanagement/user/findAll?pageNum="+${pageInfo.pageNum};
+                            window.location.href="/resourcesmanagement/imageType/findAll?pageNum="+${pageInfo.pageNum};
                         }else{
                             alert("添加用户数据失败！");
                         }
@@ -59,33 +59,31 @@
             });
         })
 
-        function showUser(id) {
+        function showImageType(id) {
             $.post(
-                '<%=request.getContextPath()%>/user/findById',
+                '<%=request.getContextPath()%>/imageType/findById',
                 {'id':id},
                 function(result){
                     if(result.success){
                         $('#id').val(result.data.id);
-                        $('#loginName1').val(result.data.loginName);
-                        $('#pwd').val(result.data.loginPassword);
-                        $('#name1').val(result.data.name);
-                        $('#roleId1').val(result.data.roleId);
+                        console.log(result.data.imageTypeName)
+                        $('#imageTypeName').val(result.data.imageTypeName);
                     }
                 }
             );
         }
 
+        //修改素材类型
         function modify() {
             $.ajax({
                 type: 'post',
-                url: '<%=request.getContextPath()%>/user/modify',
-                data: {'id': $('#id').val(), 'loginName': $('#loginName1').val(),'loginPassword':$('#pwd').val(),'name':$('#name1').val()
-                ,'roleId':$('#roleId1').val()},
+                url: '<%=request.getContextPath()%>/imageType/modify',
+                data: {'id': $('#id').val(),'imageTypeName':$('#imageTypeName').val()},
                 dataType: 'json',
                 success: function (result) {
                     if (result.success) {
                         //重新加载数据
-                        location.href = '<%=request.getContextPath()%>/user/findAll?pageNum='+${pageInfo.pageNum};
+                        location.href = '<%=request.getContextPath()%>/imageType/findAll?pageNum='+${pageInfo.pageNum};
                     } else {
                         alert("修改数据失败！")
                     }
@@ -94,21 +92,21 @@
         }
 
         //显示确认删除的提示
-        function showDeleteUser(id){
-            $('#deleteUserById').val(id);
-            $('#deleteUser').modal('show');
+        function showDeleteImageType(id){
+            $('#deleteImageTypeById').val(id);
+            $('#deleteImageType').modal('show');
         }
 
         //删除商品类型
-        function removeUserById(){
+        function removeImageTypeById(){
             $.get(
-                '<%=request.getContextPath()%>/user/removeById',
-                {'id':$('#deleteUserById').val()},
+                '<%=request.getContextPath()%>/imageType/removeById',
+                {'id':$('#deleteImageTypeById').val()},
                 function(result){
                     if(result.success){
-                        window.location.href='<%=request.getContextPath()%>/user/findAll?pageNum='+${pageInfo.pageNum};
+                        window.location.href='<%=request.getContextPath()%>/imageType/findAll?pageNum='+${pageInfo.pageNum};
                     }else{
-                        alert("删除系统用户失败！")
+                        alert("删除素材分类失败！")
                     }
                 }
             );
@@ -141,10 +139,10 @@
 <body>
 <div class="panel panel-default" id="userSet">
     <div class="panel-heading">
-        <h3 class="panel-title">系统用户管理</h3>
+        <h3 class="panel-title">素材类型管理</h3>
     </div>
     <div class="panel-body">
-        <input type="button" value="添加系统用户" class="btn btn-primary" id="doAddProTpye">
+        <input type="button" value="添加素材类型" class="btn btn-primary" id="doAddProTpye">
         <br>
         <br>
         <div class="show-list">
@@ -152,38 +150,26 @@
                 <thead>
                 <tr class="text-danger">
                     <th class="text-center">编号</th>
-                    <th class="text-center">账号</th>
-                    <th class="text-center">密码</th>
-                    <th class="text-center">姓名</th>
-                    <th class="text-center">角色</th>
-                    <th class="text-center">状态</th>
+                    <th class="text-center">名称</th>
+                    <th class="text-center">创建时间</th>
+                    <th class="text-center">最后修改时间</th>
                     <th class="text-center">操作</th>
                 </tr>
                 </thead>
                 <tbody id="tb">
-                <c:forEach items="${pageInfo.list}" var="user">
+                <c:forEach items="${pageInfo.list}" var="imageType">
                     <tr>
-                        <td>${user.id}</td>
-                        <td>${user.loginName}</td>
-                        <td>${user.loginPassword}</td>
-                        <td>${user.name}</td>
+                        <td>${imageType.id}</td>
+                        <td>${imageType.imageTypeName}</td>
                         <td>
-                            <c:if test="${user.roleId==1}">管理员</c:if>
-                            <c:if test="${user.roleId==2}">普通用户</c:if>
+                            <fmt:formatDate value="${imageType.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                         </td>
                         <td>
-                            <c:if test="${user.enableStatus==1}">可用</c:if>
-                            <c:if test="${user.enableStatus==2}">禁用</c:if>
+                            <fmt:formatDate value="${imageType.lastEditTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                         </td>
                         <td class="text-center">
-                            <input type="button" class="btn btn-warning btn-sm doProTypeModify" value="修改" onclick="showUser(${user.id})">
-                            <input type="button" class="btn btn-warning btn-sm doProTypeDelete" value="删除" onclick="showDeleteUser(${user.id})">
-                            <c:if test="${user.enableStatus==1}">
-                                <input type="button" class="btn btn-danger btn-sm doProTypeDisable" value="禁用" onclick="modifyStatus(${user.id},this)">
-                            </c:if>
-                            <c:if test="${user.enableStatus==2}"><!--表示修改素材类型-->
-                                <input type="button" class="btn btn-success btn-sm doProTypeDisable" value="可用" onclick="modifyStatus(${user.id},this)">
-                            </c:if>
+                            <input type="button" class="btn btn-warning btn-sm doImageTypeModify" value="修改" onclick="showImageType(${imageType.id})">
+                            <input type="button" class="btn btn-warning btn-sm doProTypeDelete" value="删除" onclick="showDeleteImageType(${imageType.id})">
                         </td>
                     </tr>
                 </c:forEach>
@@ -197,7 +183,7 @@
     </div>
 </div>
 
-<!-- 添加系统用户 start -->
+<!-- 添加素材类型 start -->
 <div class="modal fade" tabindex="-1" id="ProductType">
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
@@ -206,55 +192,27 @@
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">添加系统用户</h4>
+                <h4 class="modal-title">添加素材类型</h4>
             </div>
             <div class="modal-body text-center">
                 <div class="row text-right">
-                    <label for="loginName" class="col-sm-4 control-label">账号：</label>
+                    <label for="imageTypeName1" class="col-sm-4 control-label">素材分类名称</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="loginName">
-                    </div>
-                </div>
-                <br>
-                <div class="row text-right">
-                    <label for="loginPassword" class="col-sm-4 control-label">密码：</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="loginPassword">
-                    </div>
-                </div>
-                <br>
-                <div class="row text-right">
-                    <label for="name" class="col-sm-4 control-label">姓名：</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="name">
-                    </div>
-                </div>
-                <br>
-                <div class="row text-right">
-                    <label for="name" class="col-sm-4 control-label">角色：</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="roleId" placeholder="请填入数字（1管理员 2普通用户）">
-                    </div>
-                </div>
-                <br>
-                <div class="row text-right">
-                    <label for="name" class="col-sm-4 control-label">状态：</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="enableStatus" placeholder="请填入数字（1可用 2禁用）">
+                        <input type="text" class="form-control" id="imageTypeName1">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary addUser" id="addUser">添加</button>
+                <button class="btn btn-primary addUser" id="addImageType">添加</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
 </div>
-<!-- 添加系统用户 end -->
+<!-- 添加素材类型用户 end -->
 
-<!-- 修改用户 start -->
-<div class="modal fade" tabindex="-1" id="myProductType">
+<!-- 修改素材类型 start -->
+<div class="modal fade" tabindex="-1" id="myImageType">
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
@@ -262,7 +220,7 @@
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">修改商品类型</h4>
+                <h4 class="modal-title">修改素材类型</h4>
             </div>
             <div class="modal-body text-center">
                 <div class="row text-right">
@@ -273,51 +231,23 @@
                 </div>
                 <br>
                 <div class="row text-right">
-                    <label for="loginName1" class="col-sm-4 control-label">账号</label>
+                    <label for="imageTypeName" class="col-sm-4 control-label">素材名称</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="loginName1">
-                    </div>
-                </div>
-                <br>
-                <div class="row text-right">
-                    <label for="pwd" class="col-sm-4 control-label">密码</label>
-                    <div class="col-sm-4">
-                        <input type="password" class="form-control" id="pwd">
-                    </div>
-                </div>
-                <br>
-                <div class="row text-right">
-                    <label for="name1" class="col-sm-4 control-label">姓名</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="name1" readonly>
-                    </div>
-                </div>
-                <br>
-                <div class="row text-right">
-                    <label for="name1" class="col-sm-4 control-label" style="color: red">角色</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="roleId1">
-                    </div>
-                </div>
-                <br>
-                <div class="row text-right">
-                    <label for="name1" class="col-sm-4 control-label">提示</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="recommend" value=" 1：管理员 2：普通用户" readonly>
+                        <input type="text" class="form-control" id="imageTypeName">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-warning updateProType" onclick="modify()">修改</button>
+                <button class="btn btn-warning updateImageType" onclick="modify()">修改</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
 </div>
-<!-- 修改商品类型 end -->
+<!-- 修改素材类型 end -->
 
 <!-- 确认删除 start -->
-<div class="modal fade" tabindex="-1" id="deleteUser">
+<div class="modal fade" tabindex="-1" id="deleteImageType">
     <!-- 窗口声明 -->
     <div class="modal-dialog">
         <!-- 内容声明 -->
@@ -331,8 +261,8 @@
                 <h4>确认要删除该系统用户吗？</h4>
             </div>
             <div class="modal-footer">
-                <input type="hidden" id="deleteUserById">
-                <button class="btn btn-primary updateProType" onclick="removeUserById()" data-dismiss="modal">删除</button>
+                <input type="hidden" id="deleteImageTypeById">
+                <button class="btn btn-primary updateProType" onclick="removeImageTypeById()" data-dismiss="modal">删除</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>
         </div>

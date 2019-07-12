@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 用户模块（权限、登陆、CRUD）
+ */
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {

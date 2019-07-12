@@ -108,6 +108,16 @@ $(function(){
         $("#myProductType").modal("hide");
     });
 
+    //素材类型管理 类型修改
+    $(".doImageTypeModify").on("click", function() {
+        _this = this; //this是事件源
+        $("#myImageType").modal("show");
+    });
+
+    $(".updateImageType").on("click", function() {
+        $("#myImageType").modal("hide");
+    });
+
     // 显示隐藏用户查询
     $('#showusersearch').click(function(){
         $('.showusersearch').slideDown(500);

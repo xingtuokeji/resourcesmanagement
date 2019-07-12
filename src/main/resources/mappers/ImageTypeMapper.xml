@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simtop.dao.ImageTypeDao">
+    <insert id="insertImageType" parameterType="com.simtop.entity.ImageType">
+        insert into tb_image_type(image_type_name, create_time, last_edit_time)
+        values (#{imageTypeName},now(),now())
+    </insert>
+
+    <update id="updateImageType" parameterType="com.simtop.entity.ImageType">
+        update tb_image_type set image_type_name=#{imageTypeName},last_edit_time=now()
+        where id=#{id}
+    </update>
+
+    <select id="selectByImageTypeId" resultType="com.simtop.entity.ImageType">
+        select id,image_type_name,create_time,last_edit_time
+        from tb_image_type
+        where id=#{id}
+    </select>
+
+    <select id="selectImageTypes" resultType="com.simtop.entity.ImageType">
+        select id,image_type_name,create_time,last_edit_time
+        from tb_image_type
+    </select>
+
+    <delete id="deleteByImageTypeId" parameterType="int">
+        delete from tb_image_type
+        where id=#{id}
+    </delete>
+
+</mapper>    
+  
