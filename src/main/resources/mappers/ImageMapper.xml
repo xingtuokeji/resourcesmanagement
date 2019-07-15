@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simtop.dao.ImageDao">
+    <resultMap id="rseult" type="com.simtop.entity.Image">
+        <result property="id" column="id"/>
+        <result property="imageName" column="image_name"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.simtop.entity.Image">
+        insert into tb_image(image_name, image_desc, create_time, last_edit_time, image_type_id, image_url)
+        values(#{imageName},#{imageDesc},now(),now(),#{imageType.id},#{imageUrl})
+    </insert>
+
+    <select id="selectAll" resultType="com.simtop.entity.Image">
+        select id,image_name,image_desc,image_type_name,image_url,create_time,last_edit_time
+        from tb_image
+    </select>
+</mapper>
+  

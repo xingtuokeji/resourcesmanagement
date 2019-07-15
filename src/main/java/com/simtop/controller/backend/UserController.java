@@ -1,4 +1,4 @@
-package com.simtop.controller;
+package com.simtop.controller.backend;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

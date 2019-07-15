@@ -36,17 +36,13 @@
             $("#image-type-set").click(function () {
                 $("#frame-id").attr("src","<%=request.getContextPath()%>/imageType/findAll")
             });
+            //后台素材管理CRUD
             $("#image-upload-set").click(function() {
-                $("#frame-id").attr("src", "<%=request.getContextPath()%>/image/main");
+                $("#frame-id").attr("src", "<%=request.getContextPath()%>/backend/image/findAll");
             });
-            $("#adas").click(function() {
-                $("#frame-id").attr("src", "<%=request.getContextPath()%>/backend/customer/findAll");
-            });
-            $("#manager-set").click(function() {
-                $("#frame-id").attr("src", "<%=request.getContextPath()%>/backend/sysuser/findAll");
-            });
-            $("#order-manager").click(function () {
-                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/order/findAll");
+            //点击素材查询与下载跳转至素材前端 在新的页面中显示前段主页
+            $("#image-select-set").click(function () {
+                window.open("<%=request.getContextPath()%>/front/image/findAll");
             });
         });
     </script>
@@ -83,7 +79,7 @@
                             <li class="list-group-item" name="userPic" id="model-parse-set">
                                 <i class="glyphicon glyphicon-apple"></i> &nbsp;模型资源解析
                             </li>
-                            <li class="list-group-item" name="userInfo" id="image-download-set">
+                            <li class="list-group-item" name="userInfo" id="image-select-set">
                                 <i class="glyphicon glyphicon-user"></i> &nbsp;素材查询与下载
                             </li>
                             <li class="list-group-item" name="userInfo" id="image-type-set">
@@ -101,7 +97,7 @@
                             <li class="list-group-item" name="userPic" id="model-download-set">
                                 <i class="glyphicon glyphicon-envelope"></i> &nbsp;模型查询与下载
                             </li>
-                            <li class="list-group-item" name="userInfo" id="image-download-set">
+                            <li class="list-group-item" name="userInfo" id="image-select-set">
                                 <i class="glyphicon glyphicon-user"></i> &nbsp;素材查询与下载
                             </li>
                             <!--todo 待开发-->

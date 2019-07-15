@@ -20,5 +20,12 @@
         <property name="prefix" value="/WEB-INF/html/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    <!--文件上传组件 如果未指定id=multipartResolver，前台提交的text、file后台获取为null-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <!--文件上传最大为10M-->
+        <property name="maxUploadSize" value="10000000"/>
+        <property name="maxInMemorySize" value="10000000"/>
+    </bean>
 
 </beans>

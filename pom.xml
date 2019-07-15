@@ -27,6 +27,9 @@
     <logback.version>1.2.3</logback.version>
     <junit.version>4.12</junit.version>
     <commons-fileupload.version>1.4</commons-fileupload.version>
+    <commons-beanutils.version>1.9.3</commons-beanutils.version>
+    <jstl.version>1.2</jstl.version>
+    <pagehelper.version>5.1.2</pagehelper.version>
   </properties>
 
   <dependencies>
@@ -132,7 +135,7 @@
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.2</version>
+      <version>${jstl.version}</version>
     </dependency>
 
     <!--工具类-->
@@ -145,9 +148,15 @@
       <dependency>
           <groupId>com.github.pagehelper</groupId>
           <artifactId>pagehelper</artifactId>
-          <version>5.1.2</version>
+          <version>${pagehelper.version}</version>
       </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>${commons-beanutils.version}</version>
+    </dependency>
   </dependencies>
+
   <build>
     <finalName>resourcesmanagement</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
