@@ -109,47 +109,52 @@
                     }
                 },
                 pageUrl:function(type,page,current){
-                    return '<%=request.getContextPath()%>/backend/product/findAll?pageNum='+page;
+                    return '<%=request.getContextPath()%>/backend/image/findAll?pageNum='+page;
                 }
             })
 
 
         });
 
-        //显示商品信息
-        function showProduct(id){
+        //显示素材信息 点击修改发送image id给后台返回相关数据给到表单
+        function showImage(id){
+            //alert("前台发出的图片id（编号为：）"+id);
             $.post(
-                '<%=request.getContextPath()%>/backend/product/findById',
+                '<%=request.getContextPath()%>/backend/image/findById',
                 {'id':id},
                 function(result){
-                    if(result.status==1){
-                        $('#pro-num').val(result.data.id);
-                        $('#pro-name').val(result.data.name);
-                        $('#pro-price').val(result.data.price);
-                        $('#pro-TypeId').val(result.data.productType.id);
-                        $('#img2').attr('src','<%=request.getContextPath()%>/backend/product/getImage?path='+result.data.image);
+                    if(result.success){
+                        $('#image-num').val(result.data.id);//素材编号
+                        $('#image-name1').val(result.data.imageName);//素材名称
+                        // todo 素材类型名称加载不出来???
+                        $('#image-typeId').val(result.data.imageType.id);
+                        //alert("result.data.imageType.imageTypeName:"+result.data.imageType.imageTypeName);
+                        console.log(result.data.imageUrl);
+                        //点击修改，加载图片
+                        $('#img2').attr('src','<%=request.getContextPath()%>/backend/image/getImage?id='+result.data.id);
                     }
                 }
             );
         }
 
-        //显示删除模态框
+        //显示删除素材模态框
         function showDeleteModal(id){
-            $('#deleteProductId').val(id);
-            $('#deleteProductModal').modal('show');
+            $('#deleteImageId').val(id);
+            $('#deleteImageModal').modal('show');
         }
 
-        //删除商品
-        function deleteProduct(){
+        //删除素材
+        function deleteImage(){
             $.post(
-                '<%=request.getContextPath()%>/backend/product/removeById',
-                {'id':$('#deleteProductId').val()},
+                '<%=request.getContextPath()%>/backend/image/removeById',
+                {'id':$('#deleteImageId').val()},
                 function(result){
-                    if(result.status==1){
+                    if(result.success){
                         layer.msg('删除成功',{
                             time:2000,
                             skin:'successMsg'
-                        })
+                        });
+                        window.location.href='<%=request.getContextPath()%>/backend/image/findAll?pageNum='+${pageInfo.pageNum};
                     }
                 }
             )
@@ -160,10 +165,10 @@
 <body>
 <div class="panel panel-default" id="userPic">
     <div class="panel-heading">
-        <h3 class="panel-title">商品管理</h3>
+        <h3 class="panel-title">素材管理</h3>
     </div>
     <div class="panel-body">
-        <input type="button" value="添加商品" class="btn btn-primary" id="doAddPro">
+        <input type="button" value="添加素材" class="btn btn-primary" id="doAddPro">
         <br>
         <br>
         <div class="show-list text-center">
@@ -171,27 +176,22 @@
                 <thead>
                 <tr class="text-danger">
                     <th class="text-center">编号</th>
-                    <th class="text-center">商品</th>
-                    <th class="text-center">价格</th>
-                    <th class="text-center">产品类型</th>
-                    <th class="text-center">状态</th>
+                    <th class="text-center">素材名称</th>
+                    <th class="text-center">素材分类</th>
+                    <th class="text-center">文件存储路径</th>
                     <th class="text-center">操作</th>
                 </tr>
                 </thead>
                 <tbody id="tb">
-                <c:forEach items="${pageInfo.list}" var="product">
+                <c:forEach items="${pageInfo.list}" var="image">
                     <tr>
-                        <td>${product.id}</td>
-                        <td>${product.name}</td>
-                        <td>${product.price}</td>
-                        <td>${product.productType.name}</td>
-                        <td>
-                            <c:if test="${product.productType.status==1}">有效商品</c:if>
-                            <c:if test="${product.productType.status==0}">无效商品</c:if>
-                        </td>
+                        <td>${image.id}</td>
+                        <td>${image.imageName}</td>
+                        <td>${image.imageType.imageTypeName}</td>
+                        <td>${image.imageUrl}</td>
                         <td class="text-center">
-                            <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showProduct(${product.id})">
-                            <input type="button" class="btn btn-warning btn-sm doProDelete" value="删除" onclick="showDeleteModal(${product.id})">
+                            <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showImage(${image.id})">
+                            <input type="button" class="btn btn-warning btn-sm doProDelete" value="删除" onclick="showDeleteModal(${image.id})">
                         </td>
                     </tr>
                 </c:forEach>
@@ -212,7 +212,7 @@
                 <!-- 头部、主体、脚注 -->
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">添加商品</h4>
+                    <h4 class="modal-title">添加素材</h4>
                 </div>
                 <div class="modal-body text-center row">
                     <div class="col-sm-8">
@@ -265,12 +265,12 @@
 </div>
 <!-- 添加素材 end -->
 
-<!-- 修改商品 start -->
+<!-- 修改素材 start -->
 <div class="modal fade" tabindex="-1" id="myProduct">
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
-        <form action="<%=request.getContextPath()%>/backend/product/modify" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <form action="<%=request.getContextPath()%>/backend/image/modify" method="post" enctype="multipart/form-data" class="form-horizontal">
             <div class="modal-content">
                 <!-- 头部、主体、脚注 -->
                 <div class="modal-header">
@@ -281,25 +281,19 @@
                     <div class="col-sm-8">
                         <input type="hidden" name="pageNum" value="${pageInfo.pageNum}">
                         <div class="form-group">
-                            <label for="pro-num" class="col-sm-4 control-label">商品编号：</label>
+                            <label for="image-num" class="col-sm-4 control-label">素材编号：</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="pro-num" name="id" readonly>
+                                <input type="text" class="form-control" id="image-num" name="id" readonly>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pro-name" class="col-sm-4 control-label">商品名称：</label>
+                            <label for="image-name1" class="col-sm-4 control-label">素材名称：</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="pro-name" name="name">
+                                <input type="text" class="form-control" id="image-name1" name="imageName">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pro-price" class="col-sm-4 control-label">商品价格：</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="pro-price" name="price">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="pro-image" class="col-sm-4 control-label">商品图片：</label>
+                            <label for="pro-image" class="col-sm-4 control-label">素材图片：</label>
                             <div class="col-sm-8">
                                 <a class="file">
                                     选择文件 <input type="file" name="file" id="pro-image">
@@ -307,13 +301,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="product-type" class="col-sm-4 control-label">商品类型：</label>
+                            <label for="image-typeId" class="col-sm-4 control-label">素材类型：</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="pro-TypeId" name="productTypeId">
+                                <select class="form-control" id="image-typeId" name="imageTypeId">
                                     <option>--请选择--</option>
-                                    <!--显示商品类型-->
-                                    <c:forEach items="${productTypes}" var="productType">
-                                        <option value="${productType.id}">${productType.name}</option>
+                                    <!--显示素材类型-->
+                                    <c:forEach items="${imageTypes}" var="imageType">
+                                        <option value="${imageType.id}">${imageType.imageTypeName}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -332,10 +326,10 @@
         </form>
     </div>
 </div>
-<!-- 修改商品 end -->
+<!-- 修改素材 end -->
 
 <!-- 确认删除 start -->
-<div class="modal fade" tabindex="-1" id="deleteProductModal">
+<div class="modal fade" tabindex="-1" id="deleteImageModal">
     <!-- 窗口声明 -->
     <div class="modal-dialog">
         <!-- 内容声明 -->
@@ -346,11 +340,11 @@
                 <h4 class="modal-title">提示消息</h4>
             </div>
             <div class="modal-body text-center row">
-                <h4>确认要删除该商品吗</h4>
+                <h4>确认要删除该素材吗</h4>
             </div>
             <div class="modal-footer">
-                <input type="hidden" id="deleteProductId">
-                <button class="btn btn-primary updatePro" data-dimiss="modal" onclick="deleteProduct()">确认</button>
+                <input type="hidden" id="deleteImageId">
+                <button class="btn btn-primary updatePro" data-dimiss="modal" onclick="deleteImage()">确认</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>
         </div>

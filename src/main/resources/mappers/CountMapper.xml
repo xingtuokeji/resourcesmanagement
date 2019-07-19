@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simtop.dao.CountDao">
+    <resultMap id="result" type="com.simtop.entity.Count">
+        <id property="id" column="tc.id"/>
+        <result property="imageDownloadNums" column="image_download_nums"/>
+        <association property="image" column="image_id" javaType="com.simtop.entity.Image">
+            <id property="id" column="ti.id"/>
+            <result property="imageName" column="image_name"/>
+        </association>
+    </resultMap>
+    <select id="selectByImageId" parameterType="int" resultType="com.simtop.entity.Count">
+        select id,image_id,image_download_nums
+        from tb_count where image_id=#{imageId}
+    </select>
+
+    <insert id="insert" parameterType="int">
+        insert into tb_count(image_id, image_download_nums)
+        values (#{imageId},0)
+    </insert>
+
+    <update id="updateByImageId" parameterType="int">
+        update tb_count set image_download_nums=image_download_nums+1
+        where image_id=#{imageId}
+    </update>
+
+    <select id="findAll" resultMap="result">
+        select tc.id 'tc.id',tc.image_id,tc.image_download_nums,ti.id 'ti.id',ti.image_name
+        from tb_count tc left join tb_image ti
+        on tc.image_id = ti.id
+    </select>
+
+
+
+</mapper>    
+  

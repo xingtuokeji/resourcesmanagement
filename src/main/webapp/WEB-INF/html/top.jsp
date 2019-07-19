@@ -99,7 +99,7 @@
 <div class="navbar navbar-default clear-bottom">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand logo-style" href="http://www.simtop.com.cn/">
+            <a class="navbar-brand logo-style" href="http://www.simtop.com.cn/" target="_blank">
                 <img class="brand-img" src="<%=request.getContextPath()%>/images/com-logo1.png" alt="logo" height="70">
             </a>
         </div>

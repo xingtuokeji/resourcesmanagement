@@ -44,6 +44,10 @@
             $("#image-select-set").click(function () {
                 window.open("<%=request.getContextPath()%>/front/image/findAll");
             });
+            //点击菜单信息统计，跳转至信息统计页面
+            $("#info-statistics").click(function () {
+               $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/image/showAll")
+            });
         });
     </script>
 </head>
@@ -87,6 +91,10 @@
                             </li>
                             <li class="list-group-item" name="userPic" id="image-upload-set">
                                 <i class="glyphicon glyphicon-calendar"></i> &nbsp;素材上传
+                            </li>
+                            <!--信息统计功能 todo-->
+                            <li class="list-group-item" name="userInfo" id="info-statistics">
+                                <i class="glyphicon glyphicon-search"></i> &nbsp;信息统计
                             </li>
                             <!--todo 待开发-->
                             <li class="list-group-item" name="daikaifa" id="manager-set">
