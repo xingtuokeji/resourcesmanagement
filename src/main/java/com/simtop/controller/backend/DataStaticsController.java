@@ -53,11 +53,13 @@ public class DataStaticsController {
         }
         PageHelper.startPage(pageNum,5);
         List<Count> countList = countService.selectAll();
-        System.out.println(countList.get(0));
+//        System.out.println(countList.get(0));
         PageInfo<Count> pageInfo = new PageInfo<Count>(countList);
         model.addAttribute("pageInfo",pageInfo);
         return "imagestatistics";
     }
+
+    //返回素材名称列表、对应的下载量列表
 
 
 }

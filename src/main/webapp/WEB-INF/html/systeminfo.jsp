@@ -19,6 +19,7 @@
     <script src="<%=request.getContextPath()%>/layer/layer.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrapValidator.min.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
+    <script src="<%=request.getContextPath()%>/js/echarts.min.js"></script>
     <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/bootstrapValidator.min.css" />
     <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/zshop.css" />
     <script>
