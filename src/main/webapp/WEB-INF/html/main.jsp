@@ -48,6 +48,14 @@
             $("#info-statistics").click(function () {
                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/image/showAll")
             });
+            //系统登陆安全日志信息
+            $("#system-info").click(function () {
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/system/findAll")
+            });
+            //文件上传功能
+            $("#file-sop").click(function () {
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/file/findAll")
+            });
         });
     </script>
 </head>
@@ -96,9 +104,16 @@
                             <li class="list-group-item" name="userInfo" id="info-statistics">
                                 <i class="glyphicon glyphicon-search"></i> &nbsp;信息统计
                             </li>
+                            <li class="list-group-item" name="uerInfo" id="system-info">
+                                <i class="glyphicon glyphicon-sort-by-attributes"></i> &nbsp;系统登陆安全日志
+                            </li>
+                            <!--系统使用相关SOP文件-->
+                            <li class="list-group-item" name="uerInfo" id="file-sop">
+                                <i class="glyphicon glyphicon-barcode"></i> &nbsp;SOP文档
+                            </li>
                             <!--todo 待开发-->
                             <li class="list-group-item" name="daikaifa" id="manager-set">
-                                <i class="glyphicon glyphicon-globe"></i> &nbsp;待开发模块
+                                <i class="glyphicon glyphicon-globe"></i> &nbsp;待开发模块（红包）
                             </li>
                         </c:if>
                         <c:if test="${currentUser.roleId==2}">
@@ -110,11 +125,9 @@
                             </li>
                             <!--todo 待开发-->
                             <li class="list-group-item" name="daikaifa" id="manager-set">
-                                <i class="glyphicon glyphicon-globe"></i> &nbsp;待开发模块
+                                <i class="glyphicon glyphicon-globe"></i> &nbsp;待开发模块（红包）
                             </li>
                         </c:if>
-
-
 
                     </ul>
                 </div>

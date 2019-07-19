@@ -9,6 +9,7 @@
         <association property="image" column="image_id" javaType="com.simtop.entity.Image">
             <id property="id" column="ti.id"/>
             <result property="imageName" column="image_name"/>
+            <result property="uploader" column="uploader"/>
         </association>
     </resultMap>
     <select id="selectByImageId" parameterType="int" resultType="com.simtop.entity.Count">
@@ -27,9 +28,10 @@
     </update>
 
     <select id="findAll" resultMap="result">
-        select tc.id 'tc.id',tc.image_id,tc.image_download_nums,ti.id 'ti.id',ti.image_name
+        select tc.id 'tc.id',tc.image_id,tc.image_download_nums,ti.id 'ti.id',ti.image_name,ti.uploader
         from tb_count tc left join tb_image ti
         on tc.image_id = ti.id
+        order by tc.image_download_nums desc
     </select>
 
 

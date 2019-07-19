@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,13 +47,13 @@ public class DataStaticsController {
     }
 
     @RequestMapping("/showAll")
-    public String main(Integer pageNum, Model model){
+    public String main(Integer pageNum, Model model, HttpSession session){
         if(ObjectUtils.isEmpty(pageNum)){
             pageNum = 1;
         }
         PageHelper.startPage(pageNum,5);
         List<Count> countList = countService.selectAll();
-        System.out.println(countList);
+        System.out.println(countList.get(0));
         PageInfo<Count> pageInfo = new PageInfo<Count>(countList);
         model.addAttribute("pageInfo",pageInfo);
         return "imagestatistics";

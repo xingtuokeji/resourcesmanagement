@@ -164,6 +164,7 @@
                         <td>${count.image.id}</td>
                         <td>${count.image.imageName}</td>
                         <td>${count.imageDownloadNums}</td>
+                        <td>${count.image.uploader}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

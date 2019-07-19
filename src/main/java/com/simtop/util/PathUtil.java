@@ -36,6 +36,10 @@ public class PathUtil {
         return ("/upload/image/"+imagTypeId+"/").replace("/",separator);
     }
 
+    public static String getFilePath(){
+        return ("/upload/file/").replace("/",separator);
+    }
+
     public static void main(String[] args) {
         System.out.println(System.getProperty("os.name"));
     }

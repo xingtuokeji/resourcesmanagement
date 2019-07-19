@@ -70,6 +70,7 @@ public class ImageServiceImpl implements ImageService {
             ImageType imageType = new ImageType();
             imageType.setId(imageDto.getImageTypeId());
             image.setImageType(imageType);
+            System.out.println(image);
             return imageDao.insert(image);
         } catch (Exception e) {
             e.printStackTrace();

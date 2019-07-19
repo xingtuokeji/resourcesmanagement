@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simtop.dao.SystemPojoDao">
+    <insert id="add" parameterType="com.simtop.entity.SystemPojo">
+        insert into tb_system(ip, user_agent, create_time)
+        values (#{ip},#{userAgent},now())
+    </insert>
+
+    <select id="selectAll" resultType="com.simtop.entity.SystemPojo">
+        select id,ip,user_agent,create_time
+        from tb_system
+    </select>
+
+</mapper>    
+  

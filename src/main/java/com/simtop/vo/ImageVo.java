@@ -11,6 +11,8 @@ public class ImageVo {
     private Integer imageTypeId;
     private String imageDesc;
     private CommonsMultipartFile file;
+    //图片上传人
+    private String uploader;
 
     public Integer getId() {
         return id;
@@ -52,6 +54,14 @@ public class ImageVo {
         this.file = file;
     }
 
+    public String getUploader() {
+        return uploader;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
+    }
+
     @Override
     public String toString() {
         return "ImageVo{" +
@@ -60,6 +70,7 @@ public class ImageVo {
                 ", imageTypeId=" + imageTypeId +
                 ", imageDesc='" + imageDesc + '\'' +
                 ", file=" + file +
+                ", uploader='" + uploader + '\'' +
                 '}';
     }
 }

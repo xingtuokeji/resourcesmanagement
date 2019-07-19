@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -109,7 +110,7 @@
                     }
                 },
                 pageUrl:function(type,page,current){
-                    return '<%=request.getContextPath()%>/backend/image/findAll?pageNum='+page;
+                    return '<%=request.getContextPath()%>/backend/system/findAll?pageNum='+page;
                 }
             })
 
@@ -165,10 +166,9 @@
 <body>
 <div class="panel panel-default" id="userPic">
     <div class="panel-heading">
-        <h3 class="panel-title">素材管理</h3>
+        <h3 class="panel-title">系统日志</h3>
     </div>
     <div class="panel-body">
-        <input type="button" value="添加素材" class="btn btn-primary" id="doAddPro">
         <br>
         <br>
         <div class="show-list text-center">
@@ -176,25 +176,19 @@
                 <thead>
                 <tr class="text-danger">
                     <th class="text-center">编号</th>
-                    <th class="text-center">素材名称</th>
-                    <th class="text-center">素材分类</th>
-                    <th class="text-center">文件存储路径</th>
-                    <th class="text-center">素材上传者</th>
-                    <th class="text-center">操作</th>
+                    <th class="text-center">登陆IP</th>
+                    <th class="text-center">登陆设备信息</th>
+                    <th class="text-center">登陆起始时间</th>
                 </tr>
                 </thead>
                 <tbody id="tb">
-                <c:forEach items="${pageInfo.list}" var="image">
+                <c:forEach items="${pageInfo.list}" var="system">
                     <tr>
-                        <td>${image.id}</td>
-                        <td>${image.imageName}</td>
-                        <td>${image.imageType.imageTypeName}</td>
-                        <td>${image.imageUrl}</td>
-                        <td>${image.uploader}</td>
-                        <td class="text-center">
-                            <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showImage(${image.id})">
-                            <input type="button" class="btn btn-warning btn-sm doProDelete" value="删除" onclick="showDeleteModal(${image.id})">
-                        </td>
+                        <td>${system.id}</td>
+                        <td>${system.ip}</td>
+                        <td>${system.userAgent}</td>
+                        <td>
+                                <fmt:formatDate value="${system.createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate> </td>
                     </tr>
                 </c:forEach>
                 </tbody>

@@ -10,6 +10,8 @@ public class ImageDto {
     private String imageName;
     private Integer imageTypeId;
     private String imageDesc;
+    //图片上传人
+    private String uploader;
     private InputStream inputStream;//图片文件输入流
     private String fileName;//图片名字
     private String uploadPath;//图片的上传目录
@@ -70,6 +72,14 @@ public class ImageDto {
         this.imageDesc = imageDesc;
     }
 
+    public String getUploader() {
+        return uploader;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
+    }
+
     @Override
     public String toString() {
         return "ImageDto{" +
@@ -77,6 +87,7 @@ public class ImageDto {
                 ", imageName='" + imageName + '\'' +
                 ", imageTypeId=" + imageTypeId +
                 ", imageDesc='" + imageDesc + '\'' +
+                ", uploader='" + uploader + '\'' +
                 ", inputStream=" + inputStream +
                 ", fileName='" + fileName + '\'' +
                 ", uploadPath='" + uploadPath + '\'' +

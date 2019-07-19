@@ -13,6 +13,9 @@ public class Image {
     private ImageType imageType;//图片所属分类id
     // 范式
 
+    //统计图片下载量相关信息 新增图片上传者 todo
+    private String uploader;//图片上传者
+
     //时间戳
     private Date createTime;//创建时间
     private Date lastEditTime;//最后一次更新时间
@@ -73,6 +76,14 @@ public class Image {
         this.imageType = imageType;
     }
 
+    public String getUploader() {
+        return uploader;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
+    }
+
     @Override
     public String toString() {
         return "Image{" +
@@ -81,6 +92,7 @@ public class Image {
                 ", imageDesc='" + imageDesc + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", imageType=" + imageType +
+                ", uploader='" + uploader + '\'' +
                 ", createTime=" + createTime +
                 ", lastEditTime=" + lastEditTime +
                 '}';

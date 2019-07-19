@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.simtop.dto.ImageDto;
 import com.simtop.entity.Image;
 import com.simtop.entity.ImageType;
+import com.simtop.entity.User;
 import com.simtop.service.ImageService;
 import com.simtop.service.ImageTypeService;
 import com.simtop.util.PathUtil;
@@ -69,7 +70,7 @@ public class ImageControllerB {
      * 添加素材
      */
     @RequestMapping(value = "/add")
-    public String addProduct(ImageVo imageVo, HttpSession session, Model model, Integer pageNum){
+    public String addImage(ImageVo imageVo, HttpSession session, Model model, Integer pageNum ){
         //{   private Integer id;
         //    private String imageName;
         //    private Integer imageTypeId;
@@ -82,6 +83,11 @@ public class ImageControllerB {
         // todo vo <<< dto 将参数传递给service层，调用service方法进行业务处理
         try {
             System.out.println("前端请求已经到达后台！");
+            // todo 2019年7月19日10:02:03 获取上传者姓名
+            User user = (User)session.getAttribute("currentUser");
+            String userName = user.getName();
+            System.out.println("上传者姓名为:"+userName);
+            imageVo.setUploader(userName);
             ImageDto productDto = new ImageDto();
             //属性赋值的工具类PropertyUtils
             //org.apache.commons.beanutils.PropertyUtils;
@@ -91,6 +97,7 @@ public class ImageControllerB {
             productDto.setFileName(imageVo.getFile().getOriginalFilename());
             System.out.println("获取文件上传的输入流："+imageVo.getFile().getInputStream());
             productDto.setInputStream(imageVo.getFile().getInputStream());
+
             // todo 文件的上传目录 important
             int effectNum = imageService.add(productDto);
             if(effectNum != -1){
