@@ -22,7 +22,7 @@
                 currentPage:${pageInfo.pageNum},
                 totalPages:${pageInfo.pages},
                 pageUrl:function(type,page, current){
-                    return '<%=request.getContextPath()%>/imageType/findAll?pageNum='+page;
+                    return '<%=request.getContextPath()%>/backend/imageType/findAll?pageNum='+page;
                 },
                 itemTexts: function (type, page, current) {
                     switch (type) {
@@ -40,34 +40,34 @@
                 }
             });
 
-            $('#addImageType').click(function () {
+            //添加模型分类名称
+            $('#addPatternType').click(function () {
                 console.log("发送ajax请求开始！");
                 $.ajax({
                     type:'POST',
                     dataType:'json',
-                    url:'<%=request.getContextPath()%>/imageType/add',
-                    data:{'imageTypeName':$('#imageTypeName1').val()},
+                    url:'<%=request.getContextPath()%>/backend/patternType/add',
+                    data:{'patternTypeName':$('#patternTypeName').val()},
                     success:function (data) {
                         if(data.success){
                             console.log("添加成功！");
-                            window.location.href="/resourcesmanagement/imageType/findAll?pageNum="+${pageInfo.pageNum};
+                            window.location.href="/resourcesmanagement/backend/patternType/findAll?pageNum="+${pageInfo.pageNum};
                         }else{
-                            alert("添加用户数据失败！");
+                            alert("添加模型分类数据失败！");
                         }
                     }
                 });
             });
         });
 
-        function showImageType(id) {
+        function showPatternType(id) {
             $.post(
-                '<%=request.getContextPath()%>/imageType/findById',
+                '<%=request.getContextPath()%>/backend/patternType/findById',
                 {'id':id},
                 function(result){
                     if(result.success){
                         $('#id').val(result.data.id);
-                        console.log(result.data.imageTypeName)
-                        $('#imageTypeName').val(result.data.imageTypeName);
+                        $('#patternTypeName1').val(result.data.patternTypeName);
                     }
                 }
             );
@@ -77,13 +77,13 @@
         function modify() {
             $.ajax({
                 type: 'post',
-                url: '<%=request.getContextPath()%>/imageType/modify',
-                data: {'id': $('#id').val(),'imageTypeName':$('#imageTypeName').val()},
+                url: '<%=request.getContextPath()%>/backend/patternType/modify',
+                data: {'id': $('#id').val(),'patternTypeName':$('#patternTypeName1').val()},
                 dataType: 'json',
                 success: function (result) {
                     if (result.success) {
                         //重新加载数据
-                        location.href = '<%=request.getContextPath()%>/imageType/findAll?pageNum='+${pageInfo.pageNum};
+                        location.href = '<%=request.getContextPath()%>/backend/patternType/findAll?pageNum='+${pageInfo.pageNum};
                     } else {
                         alert("修改数据失败！")
                     }
@@ -92,21 +92,21 @@
         }
 
         //显示确认删除的提示
-        function showDeleteImageType(id){
-            $('#deleteImageTypeById').val(id);
-            $('#deleteImageType').modal('show');
+        function showDeletePatternType(id){
+            $('#deletePatternTypeById').val(id);
+            $('#deletePatternType').modal('show');
         }
 
         //删除商品类型
         function removeImageTypeById(){
             $.get(
-                '<%=request.getContextPath()%>/imageType/removeById',
-                {'id':$('#deleteImageTypeById').val()},
+                '<%=request.getContextPath()%>/backend/patternType/removeById',
+                {'id':$('#deletePatternTypeById').val()},
                 function(result){
                     if(result.success){
-                        window.location.href='<%=request.getContextPath()%>/imageType/findAll?pageNum='+${pageInfo.pageNum};
+                        window.location.href='<%=request.getContextPath()%>/backend/patternType/findAll?pageNum='+${pageInfo.pageNum};
                     }else{
-                        alert("删除素材分类失败！")
+                        alert("删除模型分类失败！")
                     }
                 }
             );
@@ -139,10 +139,10 @@
 <body>
 <div class="panel panel-default" id="userSet">
     <div class="panel-heading">
-        <h3 class="panel-title">素材类型管理</h3>
+        <h3 class="panel-title">模型类型管理</h3>
     </div>
     <div class="panel-body">
-        <input type="button" value="添加素材类型" class="btn btn-primary" id="doAddProTpye">
+        <input type="button" value="添加模型类型" class="btn btn-primary" id="doAddProTpye">
         <br>
         <br>
         <div class="show-list">
@@ -157,19 +157,19 @@
                 </tr>
                 </thead>
                 <tbody id="tb">
-                <c:forEach items="${pageInfo.list}" var="imageType">
+                <c:forEach items="${pageInfo.list}" var="patternType">
                     <tr>
-                        <td>${imageType.id}</td>
-                        <td>${imageType.imageTypeName}</td>
+                        <td>${patternType.id}</td>
+                        <td>${patternType.patternTypeName}</td>
                         <td>
-                            <fmt:formatDate value="${imageType.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            <fmt:formatDate value="${patternType.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                         </td>
                         <td>
-                            <fmt:formatDate value="${imageType.lastEditTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            <fmt:formatDate value="${patternType.lastEditTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                         </td>
                         <td class="text-center">
-                            <input type="button" class="btn btn-warning btn-sm doImageTypeModify" value="修改" onclick="showImageType(${imageType.id})">
-                            <input type="button" class="btn btn-warning btn-sm doProTypeDelete" value="删除" onclick="showDeleteImageType(${imageType.id})">
+                            <input type="button" class="btn btn-warning btn-sm doImageTypeModify" value="修改" onclick="showPatternType(${patternType.id})">
+                            <input type="button" class="btn btn-warning btn-sm doProTypeDelete" value="删除" onclick="showDeletePatternType(${patternType.id})">
                         </td>
                     </tr>
                 </c:forEach>
@@ -183,7 +183,7 @@
     </div>
 </div>
 
-<!-- 添加素材类型 start -->
+<!-- 添加模型类型 start -->
 <div class="modal fade" tabindex="-1" id="ProductType">
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
@@ -192,26 +192,26 @@
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">添加素材类型</h4>
+                <h4 class="modal-title">添加模型类型</h4>
             </div>
             <div class="modal-body text-center">
                 <div class="row text-right">
-                    <label for="imageTypeName1" class="col-sm-4 control-label">素材分类名称</label>
+                    <label for="patternTypeName" class="col-sm-4 control-label">模型分类名称</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="imageTypeName1">
+                        <input type="text" class="form-control" id="patternTypeName">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary addUser" id="addImageType">添加</button>
+                <button class="btn btn-primary addUser" id="addPatternType">添加</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>
 </div>
-<!-- 添加素材类型用户 end -->
+<!-- 添加模型 end -->
 
-<!-- 修改素材类型 start -->
+<!-- 修改模型类型 start -->
 <div class="modal fade" tabindex="-1" id="myImageType">
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
@@ -231,9 +231,9 @@
                 </div>
                 <br>
                 <div class="row text-right">
-                    <label for="imageTypeName" class="col-sm-4 control-label">素材名称</label>
+                    <label for="patternTypeName1" class="col-sm-4 control-label">素材名称</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="imageTypeName">
+                        <input type="text" class="form-control" id="patternTypeName1">
                     </div>
                 </div>
             </div>
@@ -244,10 +244,10 @@
         </div>
     </div>
 </div>
-<!-- 修改素材类型 end -->
+<!-- 修改模型类型 end -->
 
 <!-- 确认删除 start -->
-<div class="modal fade" tabindex="-1" id="deleteImageType">
+<div class="modal fade" tabindex="-1" id="deletePatternType">
     <!-- 窗口声明 -->
     <div class="modal-dialog">
         <!-- 内容声明 -->
@@ -258,10 +258,10 @@
                 <h4 class="modal-title">提示消息</h4>
             </div>
             <div class="modal-body text-center">
-                <h4>确认要删除该系统用户吗？</h4>
+                <h4>确认要删除该模型类型吗？</h4>
             </div>
             <div class="modal-footer">
-                <input type="hidden" id="deleteImageTypeById">
+                <input type="hidden" id="deletePatternTypeById">
                 <button class="btn btn-primary updateProType" onclick="removeImageTypeById()" data-dismiss="modal">删除</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>

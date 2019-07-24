@@ -16,7 +16,7 @@ public class PathUtil {
     public static String getImageBasePath(){
         String baseImagePath = "";
         if(System.getProperty("os.name").toLowerCase().startsWith("win")){
-            baseImagePath = "D:/software/apache-tomcat-8.5.42";
+            baseImagePath = "E:/apache-tomcat-8.5.42";
         }else{
             baseImagePath = "/Users/images";
         }
@@ -38,6 +38,10 @@ public class PathUtil {
 
     public static String getFilePath(){
         return ("/upload/file/").replace("/",separator);
+    }
+
+    public static String getPatternPathByPatternTypeId(Integer patternTypeId){
+        return ("/upload/model/"+patternTypeId+"/").replace("/",separator);
     }
 
     public static void main(String[] args) {

@@ -34,7 +34,7 @@
                 $("#frame-id").attr("src", "<%=request.getContextPath()%>/user/findAll");
             });
             $("#image-type-set").click(function () {
-                $("#frame-id").attr("src","<%=request.getContextPath()%>/imageType/findAll")
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/imageType/findAll");
             });
             //后台素材管理CRUD
             $("#image-upload-set").click(function() {
@@ -46,16 +46,24 @@
             });
             //点击菜单信息统计，跳转至信息统计页面
             $("#info-statistics").click(function () {
-               $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/image/showAll")
+               $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/image/showAll");
             });
             //系统登陆安全日志信息
             $("#system-info").click(function () {
-                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/system/findAll")
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/system/findAll");
             });
             //文件上传功能
             $("#file-sop").click(function () {
-                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/file/findAll")
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/file/findAll");
             });
+            //模型类型管理功能
+            $("#model-upload-set").click(function () {
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/patternType/findAll");
+            })
+            //模型信息上传
+            $("#model-info-set").click(function () {
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/pattern/findAll");
+            })
         });
     </script>
 </head>
@@ -85,11 +93,11 @@
                             <li class="list-group-item active" name="userSet" id="user-set">
                                 <i class="glyphicon glyphicon-lock"></i> &nbsp;系统用户管理
                             </li>
-                            <li class="list-group-item" name="userPic" id="model-download-set">
-                                <i class="glyphicon glyphicon-envelope"></i> &nbsp;模型查询与下载
+                            <li class="list-group-item" name="userPic" id="model-info-set">
+                                <i class="glyphicon glyphicon-envelope"></i> &nbsp;模型信息上传
                             </li>
-                            <li class="list-group-item" name="userPic" id="model-parse-set">
-                                <i class="glyphicon glyphicon-apple"></i> &nbsp;模型资源解析
+                            <li class="list-group-item" name="userPic" id="model-upload-set">
+                                <i class="glyphicon glyphicon-apple"></i> &nbsp;模型类型管理
                             </li>
                             <li class="list-group-item" name="userInfo" id="image-select-set">
                                 <i class="glyphicon glyphicon-user"></i> &nbsp;素材查询与下载
@@ -120,19 +128,29 @@
                             <li class="list-group-item" name="userPic" id="model-download-set">
                                 <i class="glyphicon glyphicon-envelope"></i> &nbsp;模型查询与下载
                             </li>
+                            <li class="list-group-item" name="userPic" id="model-parse-set">
+                                <i class="glyphicon glyphicon-apple"></i> &nbsp;模型资源解析
+                            </li>
                             <li class="list-group-item" name="userInfo" id="image-select-set">
                                 <i class="glyphicon glyphicon-user"></i> &nbsp;素材查询与下载
                             </li>
-                            <!--todo 待开发-->
-                            <li class="list-group-item" name="daikaifa" id="manager-set">
-                                <i class="glyphicon glyphicon-globe"></i> &nbsp;待开发模块（红包）
+                            <li class="list-group-item" name="userInfo" id="image-type-set">
+                                <i class="glyphicon glyphicon-cloud"></i> &nbsp;素材类别管理
+                            </li>
+                            <!--信息统计功能 todo-->
+                            <li class="list-group-item" name="userInfo" id="info-statistics">
+                                <i class="glyphicon glyphicon-search"></i> &nbsp;信息统计
+                            </li>
+                            <!--系统使用相关SOP文件-->
+                            <li class="list-group-item" name="uerInfo" id="file-sop">
+                                <i class="glyphicon glyphicon-barcode"></i> &nbsp;SOP文档
                             </li>
                         </c:if>
 
                     </ul>
                 </div>
                 <div class="col-xs-10" id="userPanel">
-                    <iframe id="frame-id" src="<%=request.getContextPath()%>/user/findAll" width="100%" height="100%" frameborder="0" scrolling="no">
+                    <iframe id="frame-id" src="<%=request.getContextPath()%>/backend/image/findAll" width="100%" height="100%" frameborder="0" scrolling="no">
                     </iframe>
                 </div>
 

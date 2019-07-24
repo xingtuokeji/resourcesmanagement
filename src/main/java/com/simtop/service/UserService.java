@@ -29,4 +29,6 @@ public interface UserService {
     User selectById(Integer id);
 
     int updateEnableStatusById(User user);
+
+    User selectByLoginName(String loginName);
 }

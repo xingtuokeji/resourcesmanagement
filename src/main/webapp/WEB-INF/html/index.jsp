@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +62,7 @@
             });
 
             //服务端提示消息
-            errorMsg='${errorMsg}';
+            let errorMsg='${errorMsg1}';
             if(errorMsg!=''){
                 layer.msg(errorMsg,{
                     time:2000,

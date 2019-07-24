@@ -30,4 +30,7 @@ public interface UserDao {
 
     User selectById(Integer id);
 
+    User selectByLoginName(String loginName);
+
+    int updateStatusById(User user);
 }

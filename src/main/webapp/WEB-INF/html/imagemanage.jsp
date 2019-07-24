@@ -165,7 +165,7 @@
 <body>
 <div class="panel panel-default" id="userPic">
     <div class="panel-heading">
-        <h3 class="panel-title">素材管理</h3>
+        <h3 class="panel-title">素材上传</h3>
     </div>
     <div class="panel-body">
         <input type="button" value="添加素材" class="btn btn-primary" id="doAddPro">

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.simtop.dao.EchartsDao">
+    <resultMap id="result" type="com.simtop.entity.Count">
+        <id property="id" column="id"/>
+        <result property="imageDownloadNums" column="image_download_nums"/>
+        <association property="image" column="image_id" javaType="com.simtop.entity.Image">
+            <id property="id" column="id"/>
+            <result property="imageName" column="image_name"/>
+        </association>
+    </resultMap>
+    <select id="findByTopThree" resultMap="result">
+        select tc.id 'tc.id',tc.image_download_nums,ti.id 'ti.id',ti.image_name
+        from tb_count tc left join tb_image ti
+        on tc.image_id = ti.id order by image_download_nums desc limit 3
+    </select>
+
+</mapper>    
+  

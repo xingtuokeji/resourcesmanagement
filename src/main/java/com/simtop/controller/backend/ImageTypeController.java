@@ -43,7 +43,7 @@ public class ImageTypeController {
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> addImageType(ImageType imageType) {
+    public Map<String,Object> addImageType(ImageType imageType,Integer pageNum) {
         System.out.println(imageType);
         Map<String, Object> map = new HashMap<>();
         int effectNum = imageTypeService.insertImageType(imageType);

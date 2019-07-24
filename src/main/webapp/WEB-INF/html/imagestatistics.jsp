@@ -15,6 +15,7 @@
     <script src="<%=request.getContextPath()%>/js/userSetting.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
     <script src="<%=request.getContextPath()%>/js/echarts.min.js"></script>
+    <script src="<%=request.getContextPath()%>/layer/layer.js"></script>
     <script type="text/javascript">
         $(function () {
             $('#pagination').bootstrapPaginator({
@@ -39,6 +40,75 @@
                     }
                 }
             });
+
+            var columnar = echarts.init(document.getElementById('columnar'));
+            $.ajax({
+                url:"/resourcesmanagement/echarts/show",
+                type:"GET",
+                success:function(e){
+                    // 指定图表的配置项和数据
+                    var option = {
+                        title: {
+                            text: e.title
+                        },
+                        tooltip: {},
+                        legend: {
+                            data: e.legendData
+                        },
+                        toolbox: {
+                            feature: {
+                                saveAsImage: {}
+                            }
+                        },
+                        xAxis: {
+                            data: e.xData,
+                            // axisLine:{
+                            //     show:true,
+                            //     lineStyle: {
+                            //         color: "#00c7ff",
+                            //         width: 0.2,
+                            //         type: "solid"
+                            //     }
+                            // }
+                        },
+                        yAxis: {},
+                        series: [{
+                            name: '销量',
+                            type: 'bar',
+                            data: e.seriesData
+                        }]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    columnar.setOption(option);
+                },
+                error:function (e) {
+                    layer.msg(e);
+                }
+            });
+            //     // 基于准备好的dom，初始化echarts实例
+            //     // 如何将后台数据放入前台页面显示
+            //     var myChart = echarts.init(document.getElementById('main'));
+            //     // 指定图表的配置项和数据 构造如下一个json对向即可实现
+            //     var option = {
+            //     title: {
+            //     text: '素材下载量统计'
+            // },
+            //     tooltip: {},
+            //     legend: {
+            //     data:['下载量']
+            // },
+            //     xAxis: {
+            //     data: ["美女1号","美女2号","VR","高清","美女三号","美女四号"]
+            // },
+            //     yAxis: {},
+            //     series: [{
+            //     name: '下载量',
+            //     type: 'bar',
+            //     data: [5, 20, 36, 10, 10, 20]
+            // }]
+            // };
+            //     // 使用刚指定的配置项和数据显示图表。
+            //     myChart.setOption(option);
 
             $('#addUser').click(function () {
                 $.ajax({
@@ -176,90 +246,12 @@
             </nav>
         </div>
         <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM todo 引入图标组件echarts 2019年7月19日16:53:53-->
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div id="main" style="width: 600px;height:400px;display: inline-block;"></div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div id="main1" style="width: 600px;height:400px;display: inline-block;"></div>
+        <div id="columnar" style="width: 600px;height:400px;"></div>
+
     </div>
 
 </div>
-<script type="text/javascript">
 
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('main'));
-
-    // 指定图表的配置项和数据 构造如下一个json对向即可实现
-    var option = {
-        title: {
-            text: '素材下载量统计'
-        },
-        tooltip: {},
-        legend: {
-            data:['下载量']
-        },
-        xAxis: {
-            data: ["美女1号","美女2号","VR","高清","美女三号","美女四号"]
-        },
-        yAxis: {},
-        series: [{
-            name: '下载量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
-        }]
-    };
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-
-    /**
-     * 饼图
-     */
-    // 基于准备好的dom，初始化echarts实例
-    var myChart1 = echarts.init(document.getElementById('main1'));
-
-    // 指定图表的配置项和数据
-    option1 = {
-        title : {
-            text: '素材下载量统计',
-            subtext: '',
-            x:'center'
-        },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: ['美女1号','美女2号','美女3号','美女4号','美女5号']
-        },
-        series : [
-            {
-                name: '素材下载量统计',
-                type: 'pie',
-                radius : '55%',
-                center: ['50%', '60%'],
-                data:[
-                    {value:335, name:'美女1号'},
-                    {value:310, name:'美女2号'},
-                    {value:234, name:'美女3号'},
-                    {value:135, name:'美女4号'},
-                    {value:1548, name:'美女5号'}
-                ],
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-    // 使用刚指定的配置项和数据显示图表。
-    myChart1.setOption(option1);
-</script>
 <!-- 添加系统用户 start -->
 <div class="modal fade" tabindex="-1" id="ProductType">
     <!-- 窗口声明 -->

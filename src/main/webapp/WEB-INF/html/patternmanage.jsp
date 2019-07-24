@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -109,25 +109,24 @@
                     }
                 },
                 pageUrl:function(type,page,current){
-                    return '<%=request.getContextPath()%>/backend/file/findAll?pageNum='+page;
+                    return '<%=request.getContextPath()%>/backend/image/findAll?pageNum='+page;
                 }
             })
 
 
         });
 
-        //显示文件信息 点击修改发送file id给后台返回相关数据给到表单
-        function showFile(id){
+        function showPattern(id){
             $.post(
-                '<%=request.getContextPath()%>/backend/file/findById',
+                '<%=request.getContextPath()%>/backend/pattern/findById',
                 {'id':id},
                 function(result){
                     if(result.success){
-                        console.log("前台获取数据成功！");
-                        $('#id').val(result.data.id);
-                        console.log(result.data.fileName);
-                        console.log(result.data.id);
-                        $('#fileName').val(result.data.fileName);
+                        $('#pattern-num').val(result.data.id);
+                        $('#pattern-name').val(result.data.patternName);
+                        $('#image-typeId').val(result.data.patternType.id);
+                        //点击修改，加载图片
+                        $('#img2').attr('src','<%=request.getContextPath()%>/backend/pattern/getPattern?id='+result.data.id);
                     }
                 }
             );
@@ -155,18 +154,16 @@
                 }
             )
         }
-
-
     </script>
 </head>
 
 <body>
 <div class="panel panel-default" id="userPic">
     <div class="panel-heading">
-        <h3 class="panel-title">SOP文档管理</h3>
+        <h3 class="panel-title">模型上传</h3>
     </div>
     <div class="panel-body">
-        <input type="button" value="添加Sop文档" class="btn btn-primary" id="doAddPro">
+        <input type="button" value="添加模型" class="btn btn-primary" id="doAddPro">
         <br>
         <br>
         <div class="show-list text-center">
@@ -174,27 +171,24 @@
                 <thead>
                 <tr class="text-danger">
                     <th class="text-center">编号</th>
-                    <th class="text-center">文档名称</th>
-                    <th class="text-center">文档存入路径</th>
-                    <th>文件上传者</th>
-                    <th>文件上传时间</th>
+                    <th class="text-center">模型名称</th>
+                    <th class="text-center">模型分类</th>
+                    <th class="text-center">模型存储路径</th>
+                    <th class="text-center">模型作者</th>
                     <th class="text-center">操作</th>
-
                 </tr>
                 </thead>
                 <tbody id="tb">
-                <c:forEach items="${pageInfo.list}" var="file">
+                <c:forEach items="${pageInfo.list}" var="pattern">
                     <tr>
-                        <td>${file.id}</td>
-                        <td>${file.fileName}</td>
-                        <td>${file.fileUrl}</td>
-                        <td>${file.fileUploader}</td>
-                        <td>
-                                <fmt:formatDate value="${file.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        <td>${pattern.id}</td>
+                        <td>${pattern.patternName}</td>
+                        <td>${pattern.patternType.patternTypeName}</td>
+                        <td>${pattern.patternUrl}</td>
+                        <td>${pattern.patternUploader}</td>
                         <td class="text-center">
-                            <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showFile(${file.id})">
-
-                            <a id="download" type="button" class="btn btn-success btn-sm doProDelete" href="${file.fileUrl}">下载</a>
+                            <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showPattern(${pattern.id})">
+                            <input type="button" class="btn btn-warning btn-sm doProDelete" value="删除" onclick="showDeleteModal(${image.id})">
                         </td>
                     </tr>
                 </c:forEach>
@@ -205,35 +199,57 @@
     </div>
 </div>
 
-<!-- 添加素材 start -->
+<!-- 添加模型 start -->
 <div class="modal fade" tabindex="-1" id="Product">
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
-        <form action="<%=request.getContextPath()%>/backend/file/add" class="form-horizontal" method="post" enctype="multipart/form-data" id="frmAddProduct">
+        <form action="<%=request.getContextPath()%>/backend/pattern/add" class="form-horizontal" method="post" enctype="multipart/form-data" id="frmAddProduct">
             <div class="modal-content">
                 <!-- 头部、主体、脚注 -->
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">添加SOP文档</h4>
+                    <h4 class="modal-title">添加模型</h4>
                 </div>
                 <div class="modal-body text-center row">
                     <div class="col-sm-8">
                         <input type="hidden" name="pageNum" value="${pageInfo.pageNum}">
                         <div class="form-group">
-                            <label for="image-name" class="col-sm-4 control-label">文档名称：</label>
+                            <label for="image-name" class="col-sm-4 control-label">模型名称：</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="image-name" name="fileName">
+                                <input type="text" class="form-control" id="image-name" name="patternName">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="image_sc" class="col-sm-4 control-label">文件：</label>
+                            <label for="image-desc" class="col-sm-4 control-label">模型描述：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="image-desc" name="patternDesc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="image_sc" class="col-sm-4 control-label">模型：</label>
                             <div class="col-sm-8">
                                 <a href="javascript:;" class="file">选择文件
                                     <input type="file" name="file" id="image_sc">
                                 </a>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="image-type" class="col-sm-4 control-label">模型类型：</label>
+                            <div class="col-sm-8" id="image-type">
+                                <select class="form-control" name="patternTypeId">
+                                    <option value="">--请选择--</option>
+                                    <c:forEach items="${patternTypes}" var="patternType">
+                                        <option value="${patternType.id}">${patternType.patternTypeName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--模型上传预览 todo -->
+                    <div class="col-sm-4">
+                        <!-- 显示图像预览 -->
+                        <img style="width: 160px;height: 180px;" id="img">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -244,43 +260,59 @@
         </form>
     </div>
 </div>
-<!-- 添加素材 end -->
+<!-- 添加模型 end -->
 
-<!-- 修改素材 start -->
+<!-- 修改模型 start -->
 <div class="modal fade" tabindex="-1" id="myProduct">
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
-        <form action="<%=request.getContextPath()%>/backend/file/modify" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <form action="<%=request.getContextPath()%>/backend/pattern/modify" method="post" enctype="multipart/form-data" class="form-horizontal">
             <div class="modal-content">
                 <!-- 头部、主体、脚注 -->
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">修改文件</h4>
+                    <h4 class="modal-title">修改模型</h4>
                 </div>
                 <div class="modal-body text-center row">
                     <div class="col-sm-8">
                         <input type="hidden" name="pageNum" value="${pageInfo.pageNum}">
                         <div class="form-group">
-                            <label for="id" class="col-sm-4 control-label">文件编号：</label>
+                            <label for="pattern-num" class="col-sm-4 control-label">模型编号：</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="id" name="id" readonly>
+                                <input type="text" class="form-control" id="pattern-num" name="id" readonly>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="fileName" class="col-sm-4 control-label">文件名称：</label>
+                            <label for="pattern-name" class="col-sm-4 control-label">模型名称：</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="fileName" name="fileName">
+                                <input type="text" class="form-control" id="pattern-name" name="patternName">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pro-image" class="col-sm-4 control-label">文件：</label>
+                            <label for="pro-image" class="col-sm-4 control-label">模型：</label>
                             <div class="col-sm-8">
                                 <a class="file">
                                     选择文件 <input type="file" name="file" id="pro-image">
                                 </a>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="image-typeId" class="col-sm-4 control-label">模型类型：</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="image-typeId" name="patternTypeId">
+                                    <option>--请选择--</option>
+                                    <!--显示素材类型-->
+                                    <c:forEach items="${patternTypes}" var="patternType">
+                                        <option value="${patternType.id}">${patternType.patternTypeName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <!-- 显示模型预览 -->
+                        <img style="width: 160px;height: 180px;" id="img2">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -291,7 +323,7 @@
         </form>
     </div>
 </div>
-<!-- 修改素材 end -->
+<!-- 修改模型 end -->
 
 <!-- 确认删除 start -->
 <div class="modal fade" tabindex="-1" id="deleteImageModal">
@@ -305,7 +337,7 @@
                 <h4 class="modal-title">提示消息</h4>
             </div>
             <div class="modal-body text-center row">
-                <h4>确认要删除该素材吗</h4>
+                <h4>确认要删除该模型吗</h4>
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="deleteImageId">

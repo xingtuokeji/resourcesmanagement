@@ -96,7 +96,7 @@
 <%--                                        ${image.imageDesc}--%>
 <%--                                    </div>--%>
                                     <div class="attention pull-right">
-                                        <a href="${image.imageUrl}" download="image_url" onclick="downloadData(${image.id})">下载</a> <i class="icon iconfont icon-gouwuche"></i>
+                                        <a href="${image.imageUrl}" download="${image.imageName}" onclick="downloadData(${image.id})">下载</a> <i class="icon iconfont icon-gouwuche"></i>
                                     </div>
                                 </div>
                             </div>

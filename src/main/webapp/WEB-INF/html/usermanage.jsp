@@ -14,6 +14,8 @@
     <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
     <script src="<%=request.getContextPath()%>/js/userSetting.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
+    <script src="<%=request.getContextPath()%>/layer/layer.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/zshop.css" />
     <script type="text/javascript">
         $(function () {
             $('#pagination').bootstrapPaginator({
@@ -21,6 +23,7 @@
                 currentPage:${pageInfo.pageNum},
                 totalPages:${pageInfo.pages},
                 pageUrl:function(type,page, current){
+                    console.log("page="+page);
                     return '<%=request.getContextPath()%>/user/findAll?pageNum='+page;
                 },
                 itemTexts: function (type, page, current) {
@@ -49,10 +52,17 @@
                     ,enableStatus:$('#enableStatus').val()},
                     success:function (data) {
                         if(data.success){
-                            console.log("添加成功！");
-                            window.location.href="/resourcesmanagement/user/findAll?pageNum="+${pageInfo.pageNum};
+                            layer.msg('添加成功',{
+                                time:2000,
+                                skin:'successMsg'
+                            },function(){
+                                location.href="<%=request.getContextPath()%>/user/findAll?pageNum="+${pageInfo.pageNum};
+                            })
                         }else{
-                            alert("添加用户数据失败！");
+                            layer.msg('$(errorMsg)',{
+                                time:2000,
+                                skin:'errorMsg'
+                            });
                         }
                     }
                 });
@@ -86,6 +96,14 @@
                     if (result.success) {
                         //重新加载数据
                         location.href = '<%=request.getContextPath()%>/user/findAll?pageNum='+${pageInfo.pageNum};
+                        //服务端提示消息 没有起作用
+                        let successMsg='${successMsg}';
+                        if(successMsg!=''){
+                            layer.msg(successMsg,{
+                                time:2000,
+                                skin:'successMsg'
+                            });
+                        }
                     } else {
                         alert("修改数据失败！")
                     }

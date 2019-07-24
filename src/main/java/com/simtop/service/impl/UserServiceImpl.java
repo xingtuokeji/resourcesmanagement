@@ -51,12 +51,7 @@ public class UserServiceImpl implements UserService {
     public User login(User user) {
         String loginName = user.getLoginName();
         String loginPassword = user.getLoginPassword();
-        User u = userDao.selectByLoginNameAndLoginPassword(loginName,loginPassword);
-        if(u == null){
-            System.out.println("账号密码错误");
-            throw new RuntimeException("账号密码错误");
-        }
-        return u;
+        return userDao.selectByLoginNameAndLoginPassword(loginName,loginPassword);
     }
 
     @Override
@@ -79,6 +74,11 @@ public class UserServiceImpl implements UserService {
         }
         user.setEnableStatus(enableStatus);
         System.out.println("变化后的状态值为："+user.getEnableStatus());
-        return userDao.updateUser(user);
+        return userDao.updateStatusById(user);
+    }
+
+    @Override
+    public User selectByLoginName(String loginName) {
+        return userDao.selectByLoginName(loginName);
     }
 }

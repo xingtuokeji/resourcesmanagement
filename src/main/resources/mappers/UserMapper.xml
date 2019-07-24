@@ -15,7 +15,13 @@
 
     <update id="updateUser" parameterType="com.simtop.entity.User">
         update tb_user
-        set login_name=#{loginName},login_password=#{loginPassword},name=#{name},role_id=#{roleId},enable_status=#{enableStatus}
+        set login_name=#{loginName},login_password=#{loginPassword},role_id=#{roleId}
+        where id=#{id}
+    </update>
+
+    <update id="updateStatusById" parameterType="com.simtop.entity.User">
+        update tb_user
+        set enable_status=#{enableStatus}
         where id=#{id}
     </update>
 
@@ -47,6 +53,11 @@
         where id=#{id}
     </select>
 
+    <select id="selectByLoginName" parameterType="string" resultType="com.simtop.entity.User">
+        select id,login_name,login_password,name,role_id,enable_status
+        from tb_user
+        where login_name=#{loginName}
+    </select>
 
 </mapper>    
   
