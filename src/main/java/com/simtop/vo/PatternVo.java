@@ -8,7 +8,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 public class PatternVo {
     private Integer id;
     private String patternName;
-    private String patternDesc;
+    private String patternDesc;//换行符处理
     private CommonsMultipartFile file;
     private Integer patternTypeId;
     private String patternUploader;

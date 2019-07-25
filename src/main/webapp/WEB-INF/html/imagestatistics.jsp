@@ -23,7 +23,7 @@
                 currentPage:${pageInfo.pageNum},
                 totalPages:${pageInfo.pages},
                 pageUrl:function(type,page, current){
-                    return '<%=request.getContextPath()%>/user/findAll?pageNum='+page;
+                    return '<%=request.getContextPath()%>/backend/image/findAll?pageNum='+page;
                 },
                 itemTexts: function (type, page, current) {
                     switch (type) {

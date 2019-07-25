@@ -8,6 +8,7 @@ import com.simtop.entity.PatternType;
 import com.simtop.entity.User;
 import com.simtop.service.PatternService;
 import com.simtop.service.PatternTypeService;
+import com.simtop.util.FilterLineBreak;
 import com.simtop.util.PathUtil;
 import com.simtop.vo.PatternVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +63,10 @@ public class PatternController {
         PatternDto patternDto = new PatternDto();
         patternDto.setFileName(patternVo.getFile().getOriginalFilename());
         patternDto.setPatternName(patternVo.getPatternName());
-        patternDto.setPatternDesc(patternVo.getPatternDesc());
+        //前后台换行符\n的处理
+        String patternDesc = patternVo.getPatternDesc();
+        patternDesc = FilterLineBreak.filterLineBreak(patternDesc);
+        patternDto.setPatternDesc(patternDesc);
         patternDto.setPatternTypeId(patternVo.getPatternTypeId());
         patternDto.setPatternUploader(patternVo.getPatternUploader());
         try {
@@ -137,6 +141,21 @@ public class PatternController {
             throw new RuntimeException("模型修改失败！");
         }
         return "forward:findAll?pageNum="+pageNum;
+    }
+
+    @RequestMapping("/removeById")
+    @ResponseBody
+    public Map<String,Object> removeById(Integer id){
+        Map<String,Object> map = new HashMap<>();
+        int effectNum = patternService.removeById(id);
+        if(effectNum != -1){
+            map.put("success",true);
+            map.put("successMsg","删除模型类型成功！");
+        }else{
+            map.put("success",false);
+            map.put("errorMsg","删除模型类型失败！");
+        }
+        return map;
     }
 
 }

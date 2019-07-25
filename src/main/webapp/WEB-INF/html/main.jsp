@@ -64,6 +64,10 @@
             $("#model-info-set").click(function () {
                 $("#frame-id").attr("src","<%=request.getContextPath()%>/backend/pattern/findAll");
             })
+            //模型查询与下载（详情页开发） todo
+            $("#model-info-download").click(function () {
+                window.open("<%=request.getContextPath()%>/front/pattern/findAll");
+            })
         });
     </script>
 </head>
@@ -92,6 +96,9 @@
                         <c:if test="${currentUser.roleId==1}">
                             <li class="list-group-item active" name="userSet" id="user-set">
                                 <i class="glyphicon glyphicon-lock"></i> &nbsp;系统用户管理
+                            </li>
+                            <li class="list-group-item" name="userPic" id="model-info-download">
+                                <i class="glyphicon glyphicon-text-background"></i> &nbsp; 模型查询与下载
                             </li>
                             <li class="list-group-item" name="userPic" id="model-info-set">
                                 <i class="glyphicon glyphicon-envelope"></i> &nbsp;模型信息上传

@@ -7,6 +7,7 @@ import com.simtop.entity.PatternType;
 import com.simtop.service.PatternService;
 import com.simtop.util.FileUtil;
 import com.simtop.util.PathUtil;
+import com.simtop.vo.PatternParamsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,5 +82,16 @@ public class PatternServiceImpl implements PatternService {
         pattern.setPatternUploader(patternDto.getPatternUploader());
         pattern.setId(patternDto.getId());
         return patternDao.updateSome(pattern);
+    }
+
+    @Override
+    public int removeById(Integer id) {
+        return patternDao.deleteById(id);
+    }
+
+    @Override
+    public List<Pattern> findByParams(PatternParamsVo params) {
+        return patternDao.selectByParams(params);
+
     }
 }

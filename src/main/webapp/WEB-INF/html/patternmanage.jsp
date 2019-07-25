@@ -124,7 +124,8 @@
                     if(result.success){
                         $('#pattern-num').val(result.data.id);
                         $('#pattern-name').val(result.data.patternName);
-                        $('#image-typeId').val(result.data.patternType.id);
+                        $('#pattern-typeId').val(result.data.patternType.id);
+                        $('#pattern-desc').val(result.data.patternDesc)
                         //点击修改，加载图片
                         $('#img2').attr('src','<%=request.getContextPath()%>/backend/pattern/getPattern?id='+result.data.id);
                     }
@@ -134,22 +135,22 @@
 
         //显示删除素材模态框
         function showDeleteModal(id){
-            $('#deleteImageId').val(id);
+            $('#deletePatternId').val(id);
             $('#deleteImageModal').modal('show');
         }
 
         //删除素材
         function deleteImage(){
             $.post(
-                '<%=request.getContextPath()%>/backend/image/removeById',
-                {'id':$('#deleteImageId').val()},
+                '<%=request.getContextPath()%>/backend/pattern/removeById',
+                {'id':$('#deletePatternId').val()},
                 function(result){
                     if(result.success){
                         layer.msg('删除成功',{
                             time:2000,
                             skin:'successMsg'
                         });
-                        window.location.href='<%=request.getContextPath()%>/backend/image/findAll?pageNum='+${pageInfo.pageNum};
+                        window.location.href='<%=request.getContextPath()%>/backend/pattern/findAll?pageNum='+${pageInfo.pageNum};
                     }
                 }
             )
@@ -188,7 +189,7 @@
                         <td>${pattern.patternUploader}</td>
                         <td class="text-center">
                             <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showPattern(${pattern.id})">
-                            <input type="button" class="btn btn-warning btn-sm doProDelete" value="删除" onclick="showDeleteModal(${image.id})">
+                            <input type="button" class="btn btn-warning btn-sm doProDelete" value="删除" onclick="showDeleteModal(${pattern.id})">
                         </td>
                     </tr>
                 </c:forEach>
@@ -223,7 +224,8 @@
                         <div class="form-group">
                             <label for="image-desc" class="col-sm-4 control-label">模型描述：</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="image-desc" name="patternDesc">
+                                <textarea class="form-control" id="image-desc" name="patternDesc">
+                                </textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -290,7 +292,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="pro-image" class="col-sm-4 control-label">模型：</label>
+                            <label for="pattern-desc" class="col-sm-4 control-label">模型描述：</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" id="pattern-desc" name="patternDesc">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pro-image" class="col-sm-4 control-label">模型文件：</label>
                             <div class="col-sm-8">
                                 <a class="file">
                                     选择文件 <input type="file" name="file" id="pro-image">
@@ -298,9 +307,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="image-typeId" class="col-sm-4 control-label">模型类型：</label>
+                            <label for="pattern-typeId" class="col-sm-4 control-label">模型类型：</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="image-typeId" name="patternTypeId">
+                                <select class="form-control" id="pattern-typeId" name="patternTypeId">
                                     <option>--请选择--</option>
                                     <!--显示素材类型-->
                                     <c:forEach items="${patternTypes}" var="patternType">
@@ -340,7 +349,7 @@
                 <h4>确认要删除该模型吗</h4>
             </div>
             <div class="modal-footer">
-                <input type="hidden" id="deleteImageId">
+                <input type="hidden" id="deletePatternId">
                 <button class="btn btn-primary updatePro" data-dimiss="modal" onclick="deleteImage()">确认</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>

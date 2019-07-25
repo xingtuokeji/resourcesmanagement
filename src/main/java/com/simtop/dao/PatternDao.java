@@ -1,6 +1,7 @@
 package com.simtop.dao;
 
 import com.simtop.entity.Pattern;
+import com.simtop.vo.PatternParamsVo;
 
 import java.util.List;
 
@@ -15,4 +16,8 @@ public interface PatternDao {
     String selectPatternUrlById(int id);
 
     int updateSome(Pattern pattern);
+
+    int deleteById(Integer id);
+
+    List<Pattern> selectByParams(PatternParamsVo params);
 }
