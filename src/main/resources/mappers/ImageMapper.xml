@@ -84,6 +84,5 @@
             <if test="imageTypeId!=-1">and image_type_id=#{imageTypeId}</if>
         </where>
     </select>
-
 </mapper>
   
