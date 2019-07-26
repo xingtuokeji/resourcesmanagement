@@ -203,8 +203,7 @@
 <%--                        <li><a href="#feature-tab" data-tab="tab-ie">IE</a></li>--%>
 <%--                    </ul>--%>
 <%--                </li>--%>
-                <li class="active"><a href="">模型详情页</a></li>
-                <li><a href="<%=request.getContextPath()%>/front/pattern/findAll">返回模型首页</a></li>
+                <li class="active" style="margin-left: 80px"><a href="">模型详情页</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#about-modal">关于</a></li>
             </ul>
         </div>

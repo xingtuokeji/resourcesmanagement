@@ -47,28 +47,24 @@
             }
 
             //使用bootstrap validator插件进行客户端数据校验
-            $('#frmAddProduct').bootstrapValidator({
+            $('#addPatternFrom').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields:{
-                    name:{
+                    patternName:{
                         validators:{
                             notEmpty:{
-                                message:'商品名称不能为空'
-                            },
-                            remote:{
-                                type:'post',
-                                url:'<%=request.getContextPath()%>/backend/product/checkName'
+                                message:'模型名称不能为空'
                             }
                         }
                     },
-                    price:{
+                    patternDesc:{
                         validators:{
                             notEmpty:{
-                                message:'商品价格不能为空'
+                                message:'模型描述不能为空'
                             }
                         }
                     },
@@ -79,10 +75,10 @@
                             }
                         }
                     },
-                    productTypeId:{
+                    patternTypeId:{
                         validators:{
                             notEmpty:{
-                                message:'请选择商品类型'
+                                message:'请选择模型类型'
                             }
                         }
                     }
@@ -205,7 +201,7 @@
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
-        <form action="<%=request.getContextPath()%>/backend/pattern/add" class="form-horizontal" method="post" enctype="multipart/form-data" id="frmAddProduct">
+        <form action="<%=request.getContextPath()%>/backend/pattern/add" class="form-horizontal" method="post" enctype="multipart/form-data" id="addPatternFrom">
             <div class="modal-content">
                 <!-- 头部、主体、脚注 -->
                 <div class="modal-header">

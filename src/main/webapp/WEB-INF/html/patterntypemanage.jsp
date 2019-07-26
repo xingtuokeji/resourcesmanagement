@@ -43,6 +43,11 @@
             //添加模型分类名称
             $('#addPatternType').click(function () {
                 console.log("发送ajax请求开始！");
+                var patternTypeName = $("#patternTypeName").val();
+                if(patternTypeName==null||patternTypeName==""){
+                    alert("请输入模型类型！");
+                    return false;
+                }
                 $.ajax({
                     type:'POST',
                     dataType:'json',
@@ -198,7 +203,7 @@
                 <div class="row text-right">
                     <label for="patternTypeName" class="col-sm-4 control-label">模型分类名称</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="patternTypeName">
+                        <input type="text" class="form-control" id="patternTypeName" name="patternTypeName">
                     </div>
                 </div>
             </div>

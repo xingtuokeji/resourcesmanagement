@@ -11,10 +11,12 @@
     <title>backend</title>
     <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/bootstrap.css" />
     <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/index.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrapValidator.min.css"/>
     <script src="<%=request.getContextPath()%>/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
     <script src="<%=request.getContextPath()%>/js/userSetting.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bootstrapValidator.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $('#pagination').bootstrapPaginator({
@@ -42,6 +44,11 @@
 
             $('#addImageType').click(function () {
                 console.log("发送ajax请求开始！");
+                if($('#imageTypeName1').val()==null||$('#imageTypeName1').val()==""){
+                    alert("请输入素材类型！");
+                    //return false 等待用户输入信息！
+                    return false;
+                }
                 $.ajax({
                     type:'POST',
                     dataType:'json',
@@ -57,6 +64,7 @@
                     }
                 });
             });
+
         });
 
         function showImageType(id) {
@@ -189,6 +197,7 @@
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
         <div class="modal-content">
+            <form id="imageTypeForm">
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
@@ -198,7 +207,7 @@
                 <div class="row text-right">
                     <label for="imageTypeName1" class="col-sm-4 control-label">素材分类名称</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="imageTypeName1">
+                        <input type="text" class="form-control" id="imageTypeName1" name="imageTypeName1">
                     </div>
                 </div>
             </div>
@@ -206,6 +215,7 @@
                 <button class="btn btn-primary addUser" id="addImageType">添加</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

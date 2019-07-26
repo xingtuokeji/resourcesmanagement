@@ -10,12 +10,14 @@
     <title>backend</title>
     <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/bootstrap.css" />
     <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/index.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/zshop.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrapValidator.min.css"/>
     <script src="<%=request.getContextPath()%>/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
     <script src="<%=request.getContextPath()%>/js/userSetting.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bootstrapValidator.min.js"></script>
     <script src="<%=request.getContextPath()%>/layer/layer.js"></script>
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/zshop.css" />
     <script type="text/javascript">
         $(function () {
             $('#pagination').bootstrapPaginator({
@@ -67,7 +69,54 @@
                     }
                 });
             });
-        })
+            //添加用户数据时候的表单验证
+            $("#addUserForm").bootstrapValidator({
+                message:'值不能为空',
+                feedbackIcons:{
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields:{
+                    loginName:{
+                        validators:{
+                            notEmpty:{
+                                message:'登陆账户不能为空'
+                            }
+                        }
+                    },
+                    loginPassword:{
+                        validators:{
+                            notEmpty:{
+                                message:'登陆密码不能为空'
+                            }
+                        }
+                    },
+                    name:{
+                        validators:{
+                            notEmpty:{
+                                message:'姓名不能为空'
+                            }
+                        }
+                    },
+                    roleId:{
+                        validators:{
+                            notEmpty:{
+                                message:'用户角色不能为空'
+                            }
+                        }
+                    },
+                    enableStatus:{
+                        validators:{
+                            notEmpty:{
+                                message:'用户状态不能为空'
+                            }
+                        }
+                    }
+                }
+            })
+
+        });
 
         function showUser(id) {
             $.post(
@@ -221,6 +270,7 @@
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
         <div class="modal-content">
+            <form id="addUserForm">
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
@@ -230,35 +280,35 @@
                 <div class="row text-right">
                     <label for="loginName" class="col-sm-4 control-label">账号：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="loginName">
+                        <input type="text" class="form-control" id="loginName" name="loginName">
                     </div>
                 </div>
                 <br>
                 <div class="row text-right">
                     <label for="loginPassword" class="col-sm-4 control-label">密码：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="loginPassword">
+                        <input type="text" class="form-control" id="loginPassword" name="loginPassword">
                     </div>
                 </div>
                 <br>
                 <div class="row text-right">
                     <label for="name" class="col-sm-4 control-label">姓名：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" class="form-control" id="name" name="name">
                     </div>
                 </div>
                 <br>
                 <div class="row text-right">
                     <label for="name" class="col-sm-4 control-label">角色：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="roleId" placeholder="请填入数字（1管理员 2普通用户）">
+                        <input type="text" class="form-control" id="roleId" placeholder="请填入数字（1管理员 2普通用户）" name="roleId">
                     </div>
                 </div>
                 <br>
                 <div class="row text-right">
                     <label for="name" class="col-sm-4 control-label">状态：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="enableStatus" placeholder="请填入数字（1可用 2禁用）">
+                        <input type="text" class="form-control" id="enableStatus" placeholder="请填入数字（1可用 2禁用）" name="enableStatus">
                     </div>
                 </div>
             </div>
@@ -266,6 +316,7 @@
                 <button class="btn btn-primary addUser" id="addUser">添加</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

@@ -54,35 +54,31 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields:{
-                    name:{
+                    imageName:{
                         validators:{
                             notEmpty:{
-                                message:'商品名称不能为空'
-                            },
-                            remote:{
-                                type:'post',
-                                url:'<%=request.getContextPath()%>/backend/product/checkName'
+                                message:'素材名称不能为空'
                             }
                         }
                     },
-                    price:{
+                    imageDesc:{
                         validators:{
                             notEmpty:{
-                                message:'商品价格不能为空'
+                                message:'素材描述不能为空'
                             }
                         }
                     },
                     file:{
                         validators:{
                             notEmpty:{
-                                message:'请选择商品图片'
+                                message:'请选择素材图片'
                             }
                         }
                     },
-                    productTypeId:{
+                    imageTypeId:{
                         validators:{
                             notEmpty:{
-                                message:'请选择商品类型'
+                                message:'请选择素材类型'
                             }
                         }
                     }

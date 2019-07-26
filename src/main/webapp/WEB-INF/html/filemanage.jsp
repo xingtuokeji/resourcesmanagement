@@ -47,42 +47,24 @@
             }
 
             //使用bootstrap validator插件进行客户端数据校验
-            $('#frmAddProduct').bootstrapValidator({
+            $('#addFileForm').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields:{
-                    name:{
+                    fileName:{
                         validators:{
                             notEmpty:{
-                                message:'商品名称不能为空'
-                            },
-                            remote:{
-                                type:'post',
-                                url:'<%=request.getContextPath()%>/backend/product/checkName'
-                            }
-                        }
-                    },
-                    price:{
-                        validators:{
-                            notEmpty:{
-                                message:'商品价格不能为空'
+                                message:'文档名称不能为空'
                             }
                         }
                     },
                     file:{
                         validators:{
                             notEmpty:{
-                                message:'请选择商品图片'
-                            }
-                        }
-                    },
-                    productTypeId:{
-                        validators:{
-                            notEmpty:{
-                                message:'请选择商品类型'
+                                message:'请选择文档'
                             }
                         }
                     }
@@ -205,12 +187,12 @@
     </div>
 </div>
 
-<!-- 添加素材 start -->
+<!-- 添加文档 start -->
 <div class="modal fade" tabindex="-1" id="Product">
     <!-- 窗口声明 -->
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
-        <form action="<%=request.getContextPath()%>/backend/file/add" class="form-horizontal" method="post" enctype="multipart/form-data" id="frmAddProduct">
+        <form action="<%=request.getContextPath()%>/backend/file/add" class="form-horizontal" method="post" enctype="multipart/form-data" id="addFileForm">
             <div class="modal-content">
                 <!-- 头部、主体、脚注 -->
                 <div class="modal-header">

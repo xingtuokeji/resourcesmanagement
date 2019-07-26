@@ -42,20 +42,15 @@ public class ImageTypeController {
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String,Object> addImageType(ImageType imageType,Integer pageNum) {
-        System.out.println(imageType);
-        Map<String, Object> map = new HashMap<>();
+    public String addImageType(ImageType imageType,Integer pageNum) {
         int effectNum = imageTypeService.insertImageType(imageType);
         if (effectNum != -1) {
             System.out.println("添加素材分类成功！");
-            map.put("success", true);
-            map.put("state", 0);
+
         } else {
-            map.put("success", false);
-            map.put("errMsg", "添加素材分类失败");
+            System.out.println("添加失败");
         }
-        return map;
+        return "forward:findAll?pageNum="+pageNum;
     }
 
     @RequestMapping(value = "/findById",method = RequestMethod.POST)
