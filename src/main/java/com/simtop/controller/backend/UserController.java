@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -198,7 +199,32 @@ public class UserController {
             System.out.println("根据id更新状态成功！");
         }
         return map;
+    }
 
+    @RequestMapping("/findCurrent")
+    //需要从数据库中取出user数据
+    public String personInfo(Model model,HttpSession session){
+        User user = (User)session.getAttribute("currentUser");
+        if(user!=null){
+           Integer id = user.getId();
+           user = userService.selectById(id);
+           model.addAttribute("user",user);
+        }
+        return "personinfo";
+    }
+
+    @RequestMapping("/modifyPwd")
+    @ResponseBody
+    //根据用户id修改用户密码
+    public Map<String,Object> modifyPwdById(Integer id,String loginPassword){
+        Map<String,Object> map = new HashMap<>();
+        int effectNum = userService.modifyPwdById(id,loginPassword);
+        if(effectNum != -1){
+            map.put("success",true);
+        }else{
+            map.put("success",false);
+        }
+        return map;
     }
 
 }

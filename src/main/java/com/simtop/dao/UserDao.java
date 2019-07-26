@@ -33,4 +33,6 @@ public interface UserDao {
     User selectByLoginName(String loginName);
 
     int updateStatusById(User user);
+
+    int updatePwdById(@Param("id") Integer id, @Param("loginPassword") String loginPassword);
 }

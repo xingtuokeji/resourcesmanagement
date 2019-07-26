@@ -59,5 +59,10 @@
         where login_name=#{loginName}
     </select>
 
+    <update id="updatePwdById" parameterType="map">
+        update tb_user set login_password=#{loginPassword}
+        where id=#{id}
+    </update>
+
 </mapper>    
   

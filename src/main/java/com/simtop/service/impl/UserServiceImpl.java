@@ -81,4 +81,9 @@ public class UserServiceImpl implements UserService {
     public User selectByLoginName(String loginName) {
         return userDao.selectByLoginName(loginName);
     }
+
+    @Override
+    public int modifyPwdById(Integer id, String loginPassword) {
+        return userDao.updatePwdById(id,loginPassword);
+    }
 }

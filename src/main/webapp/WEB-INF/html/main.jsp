@@ -68,6 +68,10 @@
             $("#model-info-download").click(function () {
                 window.open("<%=request.getContextPath()%>/front/pattern/findAll");
             })
+            //提供普通用户密码修改功能
+            $("#modify-pwd").click(function () {
+                $("#frame-id").attr("src","<%=request.getContextPath()%>/user/findCurrent");
+            })
         });
     </script>
 </head>
@@ -152,6 +156,9 @@
                             </li>
                             <li class="list-group-item" name="uerInfo" id="file-sop">
                                 <i class="glyphicon glyphicon-folder-open"></i> &nbsp;API/SOP文档管理
+                            </li>
+                            <li class="list-group-item" name="uerInfo" id="modify-pwd">
+                                <i class="glyphicon glyphicon-cog"></i> &nbsp;个人管理
                             </li>
                         </c:if>
                     </ul>

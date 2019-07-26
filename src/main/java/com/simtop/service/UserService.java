@@ -31,4 +31,6 @@ public interface UserService {
     int updateEnableStatusById(User user);
 
     User selectByLoginName(String loginName);
+
+    int modifyPwdById(Integer id, String loginPassword);
 }
