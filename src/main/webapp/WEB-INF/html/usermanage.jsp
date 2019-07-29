@@ -44,6 +44,22 @@
                 }
             });
 
+            <%--//服务端提示消息--%>
+            <%--let successMsg='${successMsg}';--%>
+            <%--let errorMsg='${errorMsg}';--%>
+            <%--if(successMsg!=''){--%>
+            <%--    layer.msg(successMsg,{--%>
+            <%--        time:2000,--%>
+            <%--        skin:'successMsg'--%>
+            <%--    })--%>
+            <%--}--%>
+            <%--if(errorMsg!=''){--%>
+            <%--    layer.msg(errorMsg,{--%>
+            <%--        time:2000,--%>
+            <%--        skin:'errorMsg'--%>
+            <%--    })--%>
+            <%--}--%>
+
             $('#addUser').click(function () {
                 $.ajax({
                     type:'POST',

@@ -158,8 +158,8 @@
                     <th class="text-center">编号</th>
                     <th class="text-center">文档名称</th>
                     <th class="text-center">文档存入路径</th>
-                    <th>文件上传者</th>
-                    <th>文件上传时间</th>
+                    <th class="text-center">文件上传者</th>
+                    <th class="text-center">文件上传时间</th>
                     <th class="text-center">操作</th>
 
                 </tr>
