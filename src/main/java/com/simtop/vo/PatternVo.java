@@ -1,6 +1,5 @@
 package com.simtop.vo;
 
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  * 封装前台新增模型的数据
@@ -9,7 +8,6 @@ public class PatternVo {
     private Integer id;
     private String patternName;
     private String patternDesc;//换行符处理
-    private CommonsMultipartFile file;
     private Integer patternTypeId;
     private String patternUploader;
 
@@ -45,14 +43,6 @@ public class PatternVo {
         this.patternDesc = patternDesc;
     }
 
-    public CommonsMultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(CommonsMultipartFile file) {
-        this.file = file;
-    }
-
     public Integer getPatternTypeId() {
         return patternTypeId;
     }
@@ -67,7 +57,6 @@ public class PatternVo {
                 "id=" + id +
                 ", patternName='" + patternName + '\'' +
                 ", patternDesc='" + patternDesc + '\'' +
-                ", file=" + file +
                 ", patternTypeId=" + patternTypeId +
                 ", patternUploader='" + patternUploader + '\'' +
                 '}';

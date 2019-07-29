@@ -22,7 +22,7 @@
                 currentPage:${pageInfo.pageNum},
                 totalPages:${pageInfo.pages},
                 pageUrl:function(type,page, current){
-                    return '<%=request.getContextPath()%>/backend/imageType/findAll?pageNum='+page;
+                    return '<%=request.getContextPath()%>/backend/patternType/findAll?pageNum='+page;
                 },
                 itemTexts: function (type, page, current) {
                     switch (type) {

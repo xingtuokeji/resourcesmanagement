@@ -24,8 +24,8 @@
     </select>
 
     <insert id="add" parameterType="com.simtop.entity.Pattern">
-        insert into tb_pattern(pattern_name, pattern_desc, create_time, last_edit_time, pattern_uploader, pattern_url, pattern_type_id)
-        values (#{patternName},#{patternDesc},now(),now(),#{patternUploader},#{patternUrl},#{patternType.id})
+        insert into tb_pattern(pattern_name, pattern_desc, create_time, last_edit_time, pattern_uploader, pattern_url, pattern_type_id,pattern_file_url)
+        values (#{patternName},#{patternDesc},now(),now(),#{patternUploader},#{patternUrl},#{patternType.id},#{patternFileUrl})
     </insert>
 
     <select id="selectById" parameterType="int" resultMap="result">

@@ -9,15 +9,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>backend</title>
     <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/bootstrap.css" />
-    <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/index.css" />
-    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/zshop.css" />
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrapValidator.min.css"/>
+    <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/index.css"/>
     <script src="<%=request.getContextPath()%>/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
     <script src="<%=request.getContextPath()%>/js/userSetting.js"></script>
+    <script src="<%=request.getContextPath()%>/layer/layer.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrapValidator.min.js"></script>
-    <script src="<%=request.getContextPath()%>/layer/layer.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/css/zshop.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrapValidator.min.css"/>
     <script type="text/javascript">
         $(function () {
             $('#pagination').bootstrapPaginator({
@@ -44,47 +44,46 @@
                 }
             });
 
-            <%--//服务端提示消息--%>
-            <%--let successMsg='${successMsg}';--%>
-            <%--let errorMsg='${errorMsg}';--%>
-            <%--if(successMsg!=''){--%>
-            <%--    layer.msg(successMsg,{--%>
-            <%--        time:2000,--%>
-            <%--        skin:'successMsg'--%>
-            <%--    })--%>
-            <%--}--%>
-            <%--if(errorMsg!=''){--%>
-            <%--    layer.msg(errorMsg,{--%>
-            <%--        time:2000,--%>
-            <%--        skin:'errorMsg'--%>
-            <%--    })--%>
-            <%--}--%>
+            //服务端提示消息
+            let successMsg='${successMsg}';
+            let errorMsg='${errorMsg}';
+            if(successMsg!=''){
+                layer.msg(successMsg,{
+                    time:2000,
+                    skin:'successMsg'
+                })
+            }
+            if(errorMsg!=''){
+                layer.msg(errorMsg,{
+                    time:2000,
+                    skin:'errorMsg'
+                })
+            }
 
-            $('#addUser').click(function () {
-                $.ajax({
-                    type:'POST',
-                    dataType:'json',
-                    url:'<%=request.getContextPath()%>/user/add',
-                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-                    data:{loginName:$('#loginName').val(),loginPassword:$('#loginPassword').val(),name:$('#name').val(),roleId:$('#roleId').val()
-                    ,enableStatus:$('#enableStatus').val()},
-                    success:function (data) {
-                        if(data.success){
-                            layer.msg('添加成功',{
-                                time:2000,
-                                skin:'successMsg'
-                            },function(){
-                                location.href="<%=request.getContextPath()%>/user/findAll?pageNum="+${pageInfo.pageNum};
-                            })
-                        }else{
-                            layer.msg('$(errorMsg)',{
-                                time:2000,
-                                skin:'errorMsg'
-                            });
-                        }
-                    }
-                });
-            });
+            // todo 改用表单进行用户数据的添加
+            <%--$('#addUser').click(function () {--%>
+            <%--    $.ajax({--%>
+            <%--        type:'POST',--%>
+            <%--        dataType:'json',--%>
+            <%--        url:'<%=request.getContextPath()%>/user/add',--%>
+            <%--        contentType: 'application/x-www-form-urlencoded;charset=utf-8',--%>
+            <%--        data:{loginName:$('#loginName').val(),loginPassword:$('#loginPassword').val(),name:$('#name').val(),roleId:$('#roleId').val()--%>
+            <%--        ,enableStatus:$('#enableStatus').val()},--%>
+            <%--        success:function (data) {--%>
+            <%--            if(data.success){--%>
+            <%--                layer.msg('添加成功',{--%>
+            <%--                    time:2000,--%>
+            <%--                    skin:'successMsg'--%>
+            <%--                })--%>
+            <%--            }else{--%>
+            <%--                layer.msg('$(errorMsg)',{--%>
+            <%--                    time:2000,--%>
+            <%--                    skin:'errorMsg'--%>
+            <%--                });--%>
+            <%--            }--%>
+            <%--        }--%>
+            <%--    });--%>
+            <%--});--%>
             //添加用户数据时候的表单验证
             $("#addUserForm").bootstrapValidator({
                 message:'值不能为空',
@@ -286,7 +285,7 @@
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
         <div class="modal-content">
-            <form id="addUserForm">
+            <form id="addUserForm" action="<%=request.getContextPath()%>/user/add" method="post">
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
@@ -329,7 +328,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary addUser" id="addUser">添加</button>
+                <button class="btn btn-primary addUser" id="addUser" type="submit">添加</button>
                 <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>
             </div>
             </form>

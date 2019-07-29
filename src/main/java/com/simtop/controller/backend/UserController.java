@@ -120,7 +120,7 @@ public class UserController {
         return "redirect:/user/login/index";
     }
 
-    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAll")
     public String findAllUser(Integer pageNum, HttpServletRequest request) {
         if (ObjectUtils.isEmpty(pageNum)) {
             pageNum = 1;
@@ -132,20 +132,16 @@ public class UserController {
         return "usermanage";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> addUser(User user) {
-        Map<String, Object> map = new HashMap<>();
+    @RequestMapping(value = "/add")
+    public String addUser(User user,Model model) {
+        System.out.println("接收到前端添加用户的请求");
         int effectNum = userService.insertUser(user);
         if (effectNum != -1) {
-            map.put("success", true);
-            map.put("successMsg","添加用户成功！");
-            map.put("state", 0);
+           model.addAttribute("successMsg","添加用户成功");
         } else {
-            map.put("success", false);
-            map.put("errorMsg", "添加用户失败");
+            model.addAttribute("errorMsg", "添加用户失败");
         }
-        return map;
+        return "forward:findAll";
     }
 
     @RequestMapping(value = "/findById", method = RequestMethod.POST)

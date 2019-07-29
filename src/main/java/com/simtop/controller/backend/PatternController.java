@@ -2,13 +2,11 @@ package com.simtop.controller.backend;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.simtop.dto.PatternDto;
 import com.simtop.entity.Pattern;
 import com.simtop.entity.PatternType;
 import com.simtop.entity.User;
 import com.simtop.service.PatternService;
 import com.simtop.service.PatternTypeService;
-import com.simtop.util.FilterLineBreak;
 import com.simtop.util.PathUtil;
 import com.simtop.vo.PatternVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -55,28 +55,44 @@ public class PatternController {
         return patternTypes;
     }
 
+    //多文件上传
     @RequestMapping("/add")
-    public String add(Integer pageNum, PatternVo patternVo, Model model, HttpSession session){
-        //todo 获模型作者信息
+    public String add(Integer pageNum, PatternVo patternVo, @RequestParam("file") MultipartFile[] files, Model model, HttpSession session){
+        System.out.println(files.length);
+        //todo 获取模型作者信息
         User user = (User)session.getAttribute("currentUser");
-        patternVo.setPatternUploader(user.getName());
-        PatternDto patternDto = new PatternDto();
-        patternDto.setFileName(patternVo.getFile().getOriginalFilename());
-        patternDto.setPatternName(patternVo.getPatternName());
-        //前后台换行符\n的处理
-        String patternDesc = patternVo.getPatternDesc();
-        patternDesc = FilterLineBreak.filterLineBreak(patternDesc);
-        patternDto.setPatternDesc(patternDesc);
-        patternDto.setPatternTypeId(patternVo.getPatternTypeId());
-        patternDto.setPatternUploader(patternVo.getPatternUploader());
-        try {
-            patternDto.setInputStream(patternVo.getFile().getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String patternUploader = user.getName();
+        Pattern pattern = new Pattern();
+        pattern.setPatternUploader(patternUploader);
+        pattern.setPatternName(patternVo.getPatternName());
+        pattern.setPatternDesc(patternVo.getPatternDesc());
+        PatternType patternType = new PatternType();
+        patternType.setId(patternVo.getPatternTypeId());
+        pattern.setPatternType(patternType);
+//        patternVo.setPatternUploader(user.getName());
+//        //todo 多文件处理
+//        List<CommonsMultipartFile> commonsMultipartFiles = patternVo.getFile();
+//        PatternDto patternDto = new PatternDto();
+//        patternDto.setFileName(commonsMultipartFiles);
+//        patternDto.setPatternName(patternVo.getPatternName());
+//        //前后台换行符\n的处理
+//        String patternDesc = patternVo.getPatternDesc();
+//        patternDesc = FilterLineBreak.filterLineBreak(patternDesc);
+//        patternDto.setPatternDesc(patternDesc);
+//        patternDto.setPatternTypeId(patternVo.getPatternTypeId());
+//        patternDto.setPatternUploader(patternVo.getPatternUploader());getPatternUploader
+//        //输入流的处理 todo
+//        try {
+//            patternDto.setInputStream(commonsMultipartFiles.);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         int effectNum = 0;
         try {
-            effectNum = patternService.add(patternDto);
+            //文件流传入service层进行处理
+            effectNum = patternService.add(pattern,files);
+            // todo 后台进行请求的转发 前段获取request域中的successMsg属性，进行友好的客户端提示！
+            model.addAttribute("successMsg","添加模型成功！");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -114,31 +130,79 @@ public class PatternController {
         }
     }
 
+//    @RequestMapping("/modify")
+//    public String modify(Integer pageNum, PatternVo patternVo, Model model, HttpSession session){
+//        //todo 获模型作者信息
+//        User user = (User)session.getAttribute("currentUser");
+//        patternVo.setPatternUploader(user.getName());
+//        PatternDto patternDto = new PatternDto();
+//        patternDto.setFileName(patternVo.getFile());
+//        patternDto.setPatternName(patternVo.getPatternName());
+//        patternDto.setPatternDesc(patternVo.getPatternDesc());
+//        patternDto.setPatternTypeId(patternVo.getPatternTypeId());
+//        patternDto.setPatternUploader(patternVo.getPatternUploader());
+//        patternDto.setId(patternVo.getId());
+//        try {
+//            patternDto.setInputStream(patternVo.getFile().getInputStream());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        int effectNum = 0;
+//        try {
+//            effectNum = patternService.modify(patternDto);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        if(effectNum == -1){
+//            throw new RuntimeException("模型修改失败！");
+//        }
+//        return "forward:findAll?pageNum="+pageNum;
+//    }
+
+    //多文件上传
     @RequestMapping("/modify")
-    public String modify(Integer pageNum, PatternVo patternVo, Model model, HttpSession session){
-        //todo 获模型作者信息
+    public String modify(Integer pageNum, PatternVo patternVo, @RequestParam("file") MultipartFile[] files, Model model, HttpSession session){
+        System.out.println(files.length);
+        //todo 获取模型作者信息
         User user = (User)session.getAttribute("currentUser");
-        patternVo.setPatternUploader(user.getName());
-        PatternDto patternDto = new PatternDto();
-        patternDto.setFileName(patternVo.getFile().getOriginalFilename());
-        patternDto.setPatternName(patternVo.getPatternName());
-        patternDto.setPatternDesc(patternVo.getPatternDesc());
-        patternDto.setPatternTypeId(patternVo.getPatternTypeId());
-        patternDto.setPatternUploader(patternVo.getPatternUploader());
-        patternDto.setId(patternVo.getId());
-        try {
-            patternDto.setInputStream(patternVo.getFile().getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String patternUploader = user.getName();
+        Pattern pattern = new Pattern();
+        pattern.setPatternUploader(patternUploader);
+        pattern.setPatternName(patternVo.getPatternName());
+        pattern.setPatternDesc(patternVo.getPatternDesc());
+        PatternType patternType = new PatternType();
+        patternType.setId(patternVo.getPatternTypeId());
+        pattern.setPatternType(patternType);
+        pattern.setId(patternVo.getId());
+//        patternVo.setPatternUploader(user.getName());
+//        //todo 多文件处理
+//        List<CommonsMultipartFile> commonsMultipartFiles = patternVo.getFile();
+//        PatternDto patternDto = new PatternDto();
+//        patternDto.setFileName(commonsMultipartFiles);
+//        patternDto.setPatternName(patternVo.getPatternName());
+//        //前后台换行符\n的处理
+//        String patternDesc = patternVo.getPatternDesc();
+//        patternDesc = FilterLineBreak.filterLineBreak(patternDesc);
+//        patternDto.setPatternDesc(patternDesc);
+//        patternDto.setPatternTypeId(patternVo.getPatternTypeId());
+//        patternDto.setPatternUploader(patternVo.getPatternUploader());getPatternUploader
+//        //输入流的处理 todo
+//        try {
+//            patternDto.setInputStream(commonsMultipartFiles.);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         int effectNum = 0;
         try {
-            effectNum = patternService.modify(patternDto);
+            //文件流传入service层进行处理
+            effectNum = patternService.modify(pattern,files);
+            // todo 后台进行请求的转发 前段获取request域中的successMsg属性，进行友好的客户端提示！
+            model.addAttribute("successMsg","修改模型成功！");
         } catch (IOException e) {
             e.printStackTrace();
         }
         if(effectNum == -1){
-            throw new RuntimeException("模型修改失败！");
+            throw new RuntimeException("模型上传失败！");
         }
         return "forward:findAll?pageNum="+pageNum;
     }

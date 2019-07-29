@@ -170,7 +170,7 @@
                     <th class="text-center">编号</th>
                     <th class="text-center">模型名称</th>
                     <th class="text-center">模型分类</th>
-                    <th class="text-center">模型存储路径</th>
+                    <th class="text-center">模型压缩包路径</th>
                     <th class="text-center">模型作者</th>
                     <th class="text-center">操作</th>
                 </tr>
@@ -181,7 +181,7 @@
                         <td>${pattern.id}</td>
                         <td>${pattern.patternName}</td>
                         <td>${pattern.patternType.patternTypeName}</td>
-                        <td>${pattern.patternUrl}</td>
+                        <td>${pattern.patternFileUrl}</td>
                         <td>${pattern.patternUploader}</td>
                         <td class="text-center">
                             <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showPattern(${pattern.id})">
@@ -217,18 +217,27 @@
                                 <input type="text" class="form-control" id="image-name" name="patternName">
                             </div>
                         </div>
+                        <!--修改文本域样式，-->
                         <div class="form-group">
                             <label for="image-desc" class="col-sm-4 control-label">模型描述：</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control" id="image-desc" name="patternDesc">
-                                </textarea>
+                                <textarea class="form-control" id="image-desc" name="patternDesc"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="image_sc" class="col-sm-4 control-label">模型：</label>
+                            <label for="image_sc" class="col-sm-4 control-label">模型缩略图：</label>
                             <div class="col-sm-8">
                                 <a href="javascript:;" class="file">选择文件
                                     <input type="file" name="file" id="image_sc">
+                                </a>
+                            </div>
+                        </div>
+                        <!--新增文件上传 todo -->
+                        <div class="form-group">
+                            <label for="image_sc1" class="col-sm-4 control-label">模型文件：</label>
+                            <div class="col-sm-8">
+                                <a href="javascript:;" class="file">选择文件
+                                    <input type="file" name="file" id="image_sc1">
                                 </a>
                             </div>
                         </div>

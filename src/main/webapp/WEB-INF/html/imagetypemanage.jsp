@@ -13,10 +13,12 @@
     <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/index.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrapValidator.min.css"/>
     <script src="<%=request.getContextPath()%>/js/jquery.js"></script>
+    <script src="<%=request.getContextPath()%>/layer/layer.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
     <script src="<%=request.getContextPath()%>/js/userSetting.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrapValidator.min.js"></script>
+    <link rel="stylesheet"  href="<%=request.getContextPath()%>/css/zshop.css" />
     <script type="text/javascript">
         $(function () {
             $('#pagination').bootstrapPaginator({
@@ -55,11 +57,19 @@
                     url:'<%=request.getContextPath()%>/imageType/add',
                     data:{'imageTypeName':$('#imageTypeName1').val()},
                     success:function (data) {
+                        console.log(data);
                         if(data.success){
-                            console.log("添加成功！");
+                            alert("请求响应成功");
+                            layer.msg('添加素材分类成功',{
+                                time:2000,
+                                skin:'successMsg'
+                            });
                             window.location.href="/resourcesmanagement/imageType/findAll?pageNum="+${pageInfo.pageNum};
                         }else{
-                            alert("添加用户数据失败！");
+                            layer.msg('添加素材分类失败',{
+                                time:2000,
+                                skin:'errorMsg'
+                            });
                         }
                     }
                 });

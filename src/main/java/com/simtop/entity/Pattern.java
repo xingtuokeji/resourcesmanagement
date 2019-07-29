@@ -10,9 +10,20 @@ public class Pattern {
     private String patternName;
     private String patternDesc;
     private String patternUploader;
-    private String patternUrl;
+    private String patternUrl;//模型缩略图相对地址
     private Date createTime;
     private Date lastEditTime;
+
+    //新增模型文件 todo 2019年7月29日15:09:56
+    private String patternFileUrl;//模型文件相对地址
+
+    public String getPatternFileUrl() {
+        return patternFileUrl;
+    }
+
+    public void setPatternFileUrl(String patternFileUrl) {
+        this.patternFileUrl = patternFileUrl;
+    }
 
     //符合类型 N:1
     private PatternType patternType;
@@ -91,6 +102,7 @@ public class Pattern {
                 ", patternUrl='" + patternUrl + '\'' +
                 ", createTime=" + createTime +
                 ", lastEditTime=" + lastEditTime +
+                ", patternFileUrl='" + patternFileUrl + '\'' +
                 ", patternType=" + patternType +
                 '}';
     }

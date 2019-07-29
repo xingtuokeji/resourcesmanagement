@@ -20,4 +20,5 @@ public interface PatternDao {
     int deleteById(Integer id);
 
     List<Pattern> selectByParams(PatternParamsVo params);
+
 }
