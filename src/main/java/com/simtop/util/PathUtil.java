@@ -18,7 +18,7 @@ public class PathUtil {
         if(System.getProperty("os.name").toLowerCase().startsWith("win")){
             baseImagePath = "E:/apache-tomcat-8.5.42";
         }else{
-            baseImagePath = "/Users/images";
+            baseImagePath = "/Users/zhoujie/images";
         }
         return baseImagePath.replace("/",separator);
     }

@@ -9,6 +9,7 @@
         <result property="patternDesc" column="pattern_desc"/>
         <result property="patternUploader" column="pattern_uploader"/>
         <result property="patternUrl" column="pattern_url"/>
+        <result property="patternFileUrl" column="pattern_file_url"/>
         <result property="createTime" column="create_time"/>
         <result property="lastEditTime" column="last_edit_time"/>
         <association property="patternType" column="pattern_type_id" javaType="com.simtop.entity.PatternType">
@@ -18,7 +19,7 @@
     </resultMap>
     <select id="selectAll" resultMap="result">
         select tp.id 'tp.id', tp.pattern_name, tp.pattern_desc, tp.create_time, tp.last_edit_time, tp.pattern_uploader, tp.pattern_url, tp.pattern_type_id,
-        tt.pattern_type_name,tt.id 'tt.id'
+        tp.pattern_file_url, tt.pattern_type_name,tt.id 'tt.id'
         from tb_pattern tp left join tb_pattern_type tt
         on tp.pattern_type_id = tt.id
     </select>
