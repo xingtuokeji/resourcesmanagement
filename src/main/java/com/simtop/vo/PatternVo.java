@@ -10,6 +10,16 @@ public class PatternVo {
     private String patternDesc;//换行符处理
     private Integer patternTypeId;
     private String patternUploader;
+    //新增模型面数
+    private String patternSurfaceNumber;
+
+    public String getPatternSurfaceNumber() {
+        return patternSurfaceNumber;
+    }
+
+    public void setPatternSurfaceNumber(String patternSurfaceNumber) {
+        this.patternSurfaceNumber = patternSurfaceNumber;
+    }
 
     public Integer getId() {
         return id;
@@ -59,6 +69,7 @@ public class PatternVo {
                 ", patternDesc='" + patternDesc + '\'' +
                 ", patternTypeId=" + patternTypeId +
                 ", patternUploader='" + patternUploader + '\'' +
+                ", patternSurfaceNumber='" + patternSurfaceNumber + '\'' +
                 '}';
     }
 }

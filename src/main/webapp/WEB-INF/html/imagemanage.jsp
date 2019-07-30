@@ -273,7 +273,7 @@
                 <!-- 头部、主体、脚注 -->
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">修改商品</h4>
+                    <h4 class="modal-title">修改素材</h4>
                 </div>
                 <div class="modal-body text-center row">
                     <div class="col-sm-8">

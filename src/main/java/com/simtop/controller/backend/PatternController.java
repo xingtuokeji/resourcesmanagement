@@ -69,6 +69,8 @@ public class PatternController {
         PatternType patternType = new PatternType();
         patternType.setId(patternVo.getPatternTypeId());
         pattern.setPatternType(patternType);
+        //获取模型面数 2019年7月30日10:09:02 todo
+        pattern.setPatternSurfaceNumber(patternVo.getPatternSurfaceNumber());
 //        patternVo.setPatternUploader(user.getName());
 //        //todo 多文件处理
 //        List<CommonsMultipartFile> commonsMultipartFiles = patternVo.getFile();

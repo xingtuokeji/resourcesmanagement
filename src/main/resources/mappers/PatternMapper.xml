@@ -12,6 +12,7 @@
         <result property="patternFileUrl" column="pattern_file_url"/>
         <result property="createTime" column="create_time"/>
         <result property="lastEditTime" column="last_edit_time"/>
+        <result property="patternSurfaceNumber" column="pattern_surface_number"/>
         <association property="patternType" column="pattern_type_id" javaType="com.simtop.entity.PatternType">
             <id property="id" column="tt.id"/>
             <result property="patternTypeName" column="pattern_type_name"/>
@@ -19,18 +20,19 @@
     </resultMap>
     <select id="selectAll" resultMap="result">
         select tp.id 'tp.id', tp.pattern_name, tp.pattern_desc, tp.create_time, tp.last_edit_time, tp.pattern_uploader, tp.pattern_url, tp.pattern_type_id,
-        tp.pattern_file_url, tt.pattern_type_name,tt.id 'tt.id'
+        tp.pattern_file_url,tp.pattern_surface_number,tt.pattern_type_name,tt.id 'tt.id'
         from tb_pattern tp left join tb_pattern_type tt
         on tp.pattern_type_id = tt.id
     </select>
 
     <insert id="add" parameterType="com.simtop.entity.Pattern">
-        insert into tb_pattern(pattern_name, pattern_desc, create_time, last_edit_time, pattern_uploader, pattern_url, pattern_type_id,pattern_file_url)
-        values (#{patternName},#{patternDesc},now(),now(),#{patternUploader},#{patternUrl},#{patternType.id},#{patternFileUrl})
+        insert into tb_pattern(pattern_name, pattern_desc, create_time, last_edit_time, pattern_uploader, pattern_url, pattern_type_id,pattern_file_url,pattern_surface_number)
+        values (#{patternName},#{patternDesc},now(),now(),#{patternUploader},#{patternUrl},#{patternType.id},#{patternFileUrl},#{patternSurfaceNumber})
     </insert>
 
     <select id="selectById" parameterType="int" resultMap="result">
          select tp.id 'tp.id', tp.pattern_name, tp.pattern_desc, tp.create_time, tp.last_edit_time, tp.pattern_uploader, tp.pattern_url, tp.pattern_type_id,
+         tp.pattern_file_url,tp.pattern_surface_number,
         tt.pattern_type_name,tt.id 'tt.id'
         from tb_pattern tp left join tb_pattern_type tt
         on tp.pattern_type_id = tt.id
@@ -51,11 +53,12 @@
     </delete>
 
     <select id="selectByParams" parameterType="com.simtop.vo.PatternParamsVo" resultMap="result">
-        select id,pattern_name,pattern_desc,pattern_uploader,pattern_url,pattern_type_id,create_time,last_edit_time
+        select id,pattern_name,pattern_desc,pattern_uploader,pattern_url,pattern_type_id,pattern_surface_number,create_time,last_edit_time
         from tb_pattern
         <where>
             <if test="patternName!=null and patternName!=''">and pattern_name like concat(concat('%',#{patternName}),'%')</if>
             <if test="patternTypeId!=-1">and pattern_type_id=#{patternTypeId}</if>
+            <if test="patternSurfaceNumber!=null and patternSurfaceNumber!=''">and pattern_surface_number like concat(concat('%',#{patternSurfaceNumber}),'%')</if>
         </where>
     </select>
 

@@ -11,7 +11,7 @@
  Target Server Version : 80011
  File Encoding         : 65001
 
- Date: 25/07/2019 18:01:42
+ Date: 30/07/2019 11:13:00
 */
 
 SET NAMES utf8mb4;
@@ -26,7 +26,7 @@ CREATE TABLE `tb_count`  (
   `image_id` int(11) NOT NULL COMMENT '图片id，对应image表的id',
   `image_download_nums` int(255) NULL DEFAULT 0 COMMENT '图片下载次数',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tb_file
@@ -39,7 +39,7 @@ CREATE TABLE `tb_file`  (
   `file_uploader` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件上传人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '文件上传时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tb_image
@@ -55,7 +55,7 @@ CREATE TABLE `tb_image`  (
   `image_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片所在服务器路径',
   `uploader` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片上传者',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tb_image_type
@@ -67,7 +67,7 @@ CREATE TABLE `tb_image_type`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `last_edit_time` datetime(0) NULL DEFAULT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tb_pattern
@@ -80,10 +80,12 @@ CREATE TABLE `tb_pattern`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `last_edit_time` datetime(0) NULL DEFAULT NULL COMMENT '最后更新时间',
   `pattern_uploader` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模型作者',
-  `pattern_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模型存储的相对路径',
+  `pattern_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '模型图片存储的相对路径',
   `pattern_type_id` int(11) NULL DEFAULT NULL COMMENT '模型分类id',
+  `pattern_file_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '单次模型包',
+  `pattern_surface_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '新增模型面数2019年7月30日10:04:37',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tb_pattern_type
@@ -95,7 +97,7 @@ CREATE TABLE `tb_pattern_type`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `last_edit_time` datetime(0) NULL DEFAULT NULL COMMENT '最后一次更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tb_role
@@ -105,7 +107,7 @@ CREATE TABLE `tb_role`  (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色id',
   `role_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '角色名',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tb_system
@@ -117,7 +119,7 @@ CREATE TABLE `tb_system`  (
   `user_agent` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '记录系统登录信息的创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 137 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -131,6 +133,6 @@ CREATE TABLE `tb_user`  (
   `role_id` int(11) NOT NULL COMMENT '角色id 1代表超级管理员，2代表普通用户',
   `enable_status` int(11) NOT NULL COMMENT '1代表可用 2代表禁用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

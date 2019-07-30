@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/iconfont/iconfont.css">
     <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
     <script src="<%=request.getContextPath()%>/js/zshop.js"></script>
     <script type="text/javascript">
@@ -28,6 +29,32 @@
                 }
             });
         }
+        $(function () {
+            //分页
+            $('#pagination').bootstrapPaginator({
+                bootstrapMajorVersion:3,
+                currentPage:${pageInfo.pageNum},
+                totalPages:${pageInfo.pages},
+                itemTexts:function(type,page,current){
+                    switch (type) {
+                        case "first":
+                            return "首页";
+                        case "prev":
+                            return "上一页";
+                        case "next":
+                            return "下一页";
+                        case "last":
+                            return "末页";
+                        case "page":
+                            return page;
+                    }
+                },
+                pageUrl:function(type,page,current){
+                    return '<%=request.getContextPath()%>/front/image/findAll?pageNum='+page;
+                }
+            })
+        })
+
     </script>
 </head>
 
@@ -106,6 +133,9 @@
             </div>
         </div>
     </div>
+    <nav style="text-align: center">
+        <ul id="pagination"></ul>
+    </nav>
     <!-- content end-->
     <!-- footers start -->
     <div class="footers">

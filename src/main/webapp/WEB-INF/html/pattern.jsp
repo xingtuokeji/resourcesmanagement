@@ -8,11 +8,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>形拓企业资源管理系统</title>
+    <title>形拓企业资源管理系统-模型展示前端</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/iconfont/iconfont.css">
     <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bootstrap-paginator.js"></script>
     <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
     <script src="<%=request.getContextPath()%>/js/zshop.js"></script>
     <script type="text/javascript">
@@ -28,6 +29,31 @@
                 }
             });
         }
+        $(function () {
+            //分页
+            $('#pagination').bootstrapPaginator({
+                bootstrapMajorVersion:3,
+                currentPage:${pageInfo.pageNum},
+                totalPages:${pageInfo.pages},
+                itemTexts:function(type,page,current){
+                    switch (type) {
+                        case "first":
+                            return "首页";
+                        case "prev":
+                            return "上一页";
+                        case "next":
+                            return "下一页";
+                        case "last":
+                            return "末页";
+                        case "page":
+                            return page;
+                    }
+                },
+                pageUrl:function(type,page,current){
+                    return '<%=request.getContextPath()%>/front/pattern/findAll?pageNum='+page;
+                }
+            })
+        })
     </script>
 </head>
 
@@ -54,6 +80,19 @@
                         <label class="control-label">模型名称：</label>
                         <input type="text" class="form-control" placeholder="根据模型名称查询" name="patternName">
                     </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!--前端根据模型面数进行查询-->
+                    <div class="form-group">
+                        <label class="control-label">模型面数：</label>
+                        <select class="form-control input-sm" name="patternSurfaceNumber">
+                            <option value="" selected="selected">请选择</option>
+                            <option value="5K以下">5K以下</option>
+                            <option value="5K-10K">5K-10K</option>
+                            <option value="10K-30K">10K-30K</option>
+                            <option value="30K-100K">30K-100K</option>
+                            <option value="100K以上">100K以上</option>
+                        </select>
+                    </div>
                     &nbsp;
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <div class="form-group">
@@ -77,6 +116,7 @@
             </div>
         </div>
     </div>
+
     <div class="content-back">
         <div class="container" id="a">
             <div class="row">
@@ -101,6 +141,11 @@
             </div>
         </div>
     </div>
+    <!--前端模型页面分页功能 todo 2019年7月30日10:41:04-->
+    <!--居中-->
+    <nav style="text-align: center">
+        <ul id="pagination"></ul>
+    </nav>
     <!-- content end-->
     <!-- footers start -->
     <div class="footers">

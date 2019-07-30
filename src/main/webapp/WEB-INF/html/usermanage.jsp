@@ -1,10 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  pageEncoding="utf-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>backend</title>
@@ -285,7 +284,7 @@
     <div class="modal-dialog modal-lg">
         <!-- 内容声明 -->
         <div class="modal-content">
-            <form id="addUserForm" action="<%=request.getContextPath()%>/user/add" method="post">
+            <form id="addUserForm" action="<%=request.getContextPath()%>/user/add" method="post" enctype="multipart/form-data">
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
@@ -346,7 +345,7 @@
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">修改商品类型</h4>
+                <h4 class="modal-title">修改用户信息</h4>
             </div>
             <div class="modal-body text-center">
                 <div class="row text-right">

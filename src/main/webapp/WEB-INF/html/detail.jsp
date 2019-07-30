@@ -219,11 +219,12 @@
     <div style="float: right;margin-top: 50px; background-color: whitesmoke;width: 350px;height: 600px;">
         <div style="padding-left: 20px">
             <p><span>模型名称</span>：${pattern.patternName}</p>
+            <p><span>模型面数</span>：${pattern.patternSurfaceNumber}</p>
             <p><span>作者</span>：${pattern.patternUploader}</p>
             <p><span>描述</span>：${pattern.patternDesc}</p>
             <p><span>创建时间</span>：<fmt:formatDate value="${pattern.createTime}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></p>
             <!--模型下载功能 todo-->
-            <p><a href="${pattern.patternUrl}" class="btn btn-success glyphicon glyphicon-save" download="${pattern.patternName}">模型下载</a> <i class="icon iconfont icon-gouwuche"></i></p>
+            <p><a href="${pattern.patternFileUrl}" class="btn btn-success glyphicon glyphicon-save">模型包下载</a> <i class="icon iconfont icon-gouwuche"></i></p>
         </div>
     </div>
     <!-- 关于 -->

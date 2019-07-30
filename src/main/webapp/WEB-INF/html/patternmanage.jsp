@@ -105,7 +105,7 @@
                     }
                 },
                 pageUrl:function(type,page,current){
-                    return '<%=request.getContextPath()%>/backend/image/findAll?pageNum='+page;
+                    return '<%=request.getContextPath()%>/backend/pattern/findAll?pageNum='+page;
                 }
             })
 
@@ -170,6 +170,8 @@
                     <th class="text-center">编号</th>
                     <th class="text-center">模型名称</th>
                     <th class="text-center">模型分类</th>
+                    <th class="text-center">模型分类ID</th>
+                    <th class="text-center">面数</th>
                     <th class="text-center">模型压缩包路径</th>
                     <th class="text-center">模型作者</th>
                     <th class="text-center">操作</th>
@@ -181,6 +183,8 @@
                         <td>${pattern.id}</td>
                         <td>${pattern.patternName}</td>
                         <td>${pattern.patternType.patternTypeName}</td>
+                        <td>${pattern.patternType.id}</td>
+                        <td>${pattern.patternSurfaceNumber}</td>
                         <td>${pattern.patternFileUrl}</td>
                         <td>${pattern.patternUploader}</td>
                         <td class="text-center">
@@ -243,12 +247,26 @@
                         </div>
                         <div class="form-group">
                             <label for="image-type" class="col-sm-4 control-label">模型类型：</label>
-                            <div class="col-sm-8" id="image-type">
+                            <div class="col-sm-8" id="patternTypeId">
                                 <select class="form-control" name="patternTypeId">
                                     <option value="">--请选择--</option>
                                     <c:forEach items="${patternTypes}" var="patternType">
                                         <option value="${patternType.id}">${patternType.patternTypeName}</option>
                                     </c:forEach>
+                                </select>
+                            </div>
+                        </div>
+                        <!--todo 新增模型面数 2019年7月30日09:51:20-->
+                        <div class="form-group">
+                            <label for="image-type" class="col-sm-4 control-label">模型面数：</label>
+                            <div class="col-sm-8" id="image-type">
+                                <select class="form-control" name="patternSurfaceNumber">
+                                    <option value="">--请选择--</option>
+                                    <option value="5K以下">5K以下</option>
+                                    <option value="5K-10K">5K-10K</option>
+                                    <option value="10K-30K">10K-30K</option>
+                                    <option value="30K-100K">30K-100K</option>
+                                    <option value="100K以上">100K以上</option>
                                 </select>
                             </div>
                         </div>

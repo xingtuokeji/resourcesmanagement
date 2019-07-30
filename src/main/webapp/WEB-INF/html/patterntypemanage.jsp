@@ -225,7 +225,7 @@
             <!-- 头部、主体、脚注 -->
             <div class="modal-header">
                 <button class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">修改素材类型</h4>
+                <h4 class="modal-title">修改模型类型</h4>
             </div>
             <div class="modal-body text-center">
                 <div class="row text-right">

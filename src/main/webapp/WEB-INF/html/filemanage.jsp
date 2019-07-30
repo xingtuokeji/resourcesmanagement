@@ -175,7 +175,6 @@
                                 <fmt:formatDate value="${file.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                         <td class="text-center">
                             <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showFile(${file.id})">
-
                             <a id="download" type="button" class="btn btn-success btn-sm doProDelete" href="${file.fileUrl}">下载</a>
                         </td>
                     </tr>

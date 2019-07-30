@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,9 +133,11 @@ public class UserController {
         return "usermanage";
     }
 
-    @RequestMapping(value = "/add")
-    public String addUser(User user,Model model) {
-        System.out.println("接收到前端添加用户的请求");
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
+    public String addUser(User user,Model model){
+        //todo 解决后台接受前端post请求中文参数乱码问题 2019年7月30日11:38:15
+        // 1、页面编码
+        System.out.println("接收到前端添加用户的请求:"+user);
         int effectNum = userService.insertUser(user);
         if (effectNum != -1) {
            model.addAttribute("successMsg","添加用户成功");

@@ -278,7 +278,7 @@
                 <h4 class="modal-title">提示消息</h4>
             </div>
             <div class="modal-body text-center">
-                <h4>确认要删除该系统用户吗？</h4>
+                <h4>确认要删除该素材类型吗？</h4>
             </div>
             <div class="modal-footer">
                 <input type="hidden" id="deleteImageTypeById">

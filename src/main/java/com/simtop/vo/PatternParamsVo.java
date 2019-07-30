@@ -3,6 +3,15 @@ package com.simtop.vo;
 public class PatternParamsVo {
     private String patternName;
     private Integer patternTypeId;
+    private String patternSurfaceNumber;
+
+    public String getPatternSurfaceNumber() {
+        return patternSurfaceNumber;
+    }
+
+    public void setPatternSurfaceNumber(String patternSurfaceNumber) {
+        this.patternSurfaceNumber = patternSurfaceNumber;
+    }
 
     public String getPatternName() {
         return patternName;
@@ -25,6 +34,7 @@ public class PatternParamsVo {
         return "PatternParamsVo{" +
                 "patternName='" + patternName + '\'' +
                 ", patternTypeId=" + patternTypeId +
+                ", patternSurfaceNumber='" + patternSurfaceNumber + '\'' +
                 '}';
     }
 }
