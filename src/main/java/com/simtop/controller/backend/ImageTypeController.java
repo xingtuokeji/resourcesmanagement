@@ -27,7 +27,7 @@ public class ImageTypeController {
     @Autowired
     private ImageTypeService imageTypeService;
 
-    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
+    @RequestMapping(value = "/findAll")
     public String findAll(Integer pageNum,HttpServletRequest request, Model model){
         if(ObjectUtils.isEmpty(pageNum)){
             pageNum = 1;
@@ -41,8 +41,8 @@ public class ImageTypeController {
         return "imagetypemanage";
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public String addImageType(ImageType imageType,Model model) {
+    @RequestMapping(value = "/add")
+    public String addImageType(ImageType imageType,Model model,Integer pageNum) {
         Map<String,Object> map = new HashMap<>();
         int effectNum = imageTypeService.insertImageType(imageType);
         if (effectNum != -1) {
@@ -52,7 +52,7 @@ public class ImageTypeController {
             map.put("success",false);
             map.put("errorMsg","添加素材分类失败");
         }
-        return "forward";
+        return "forward:findAll?pageNum="+pageNum;
     }
 
     @RequestMapping(value = "/findById",method = RequestMethod.POST)

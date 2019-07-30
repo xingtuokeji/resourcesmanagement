@@ -74,6 +74,12 @@ $(function(){
         $("#myProduct").modal("show");
     });
 
+    //点击项目详情，显示模态框
+    $(".showDescModel").on("click", function() {
+        _this = this; //this是事件源
+        $("#myApiModel").modal("show");
+    });
+
     $(".updatePro").on("click", function() {
         $("#myProduct").modal("hide");
     });

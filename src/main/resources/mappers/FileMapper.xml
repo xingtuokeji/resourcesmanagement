@@ -4,17 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.simtop.dao.FileDao">
     <insert id="insert" parameterType="com.simtop.entity.FilePojo">
-        insert into tb_file(file_name, file_url,file_uploader,create_time)
-        values (#{fileName},#{fileUrl},#{fileUploader},now())
+        insert into tb_file(file_name, file_url,file_uploader,create_time,api_desc)
+        values (#{fileName},#{fileUrl},#{fileUploader},now(),#{apiDesc})
     </insert>
 
     <select id="selectAll" resultType="com.simtop.entity.FilePojo">
-        select id,file_name,file_url,file_uploader,create_time
+        select id,file_name,file_url,file_uploader,create_time,api_desc
         from tb_file
     </select>
 
     <select id="findById" parameterType="int" resultType="com.simtop.entity.FilePojo">
-        select id,file_name,file_url
+        select id,file_name,file_url,api_desc
         from tb_file
         where id=#{id}
     </select>

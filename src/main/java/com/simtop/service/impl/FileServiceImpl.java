@@ -45,6 +45,7 @@ public class FileServiceImpl implements FileService {
         file.setFileName(fileDto.getFileName());
         file.setFileUrl(uploadPath);
         file.setFileUploader(fileDto.getFileUploader());
+        file.setApiDesc(fileDto.getApiDesc());
         return fileDao.insert(file);
 
 

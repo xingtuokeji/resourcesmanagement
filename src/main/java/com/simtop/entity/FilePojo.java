@@ -10,6 +10,17 @@ public class FilePojo {
     private String fileName;//文件描述
     private String fileUrl;//数据库中的数据
 
+    //新增API详情介绍字段 todo
+    private String apiDesc;
+
+    public String getApiDesc() {
+        return apiDesc;
+    }
+
+    public void setApiDesc(String apiDesc) {
+        this.apiDesc = apiDesc;
+    }
+
     //todo 新增文件创建时间和文件上传者
     private Date createTime;
     private String fileUploader;
@@ -60,6 +71,7 @@ public class FilePojo {
                 "id=" + id +
                 ", fileName='" + fileName + '\'' +
                 ", fileUrl='" + fileUrl + '\'' +
+                ", apiDesc='" + apiDesc + '\'' +
                 ", createTime=" + createTime +
                 ", fileUploader='" + fileUploader + '\'' +
                 '}';

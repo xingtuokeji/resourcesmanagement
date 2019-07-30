@@ -50,6 +50,7 @@ public class FileController {
         Map<String,Object> map = new HashMap<String,Object>();
         FileDto fileDto = new FileDto();
         fileDto.setFileName(fileVo.getFileName());
+        fileDto.setApiDesc(fileVo.getApiDesc());
         try {
             fileDto.setInputStream(fileVo.getFile().getInputStream());
             fileDto.setUploadFileName(fileVo.getFile().getOriginalFilename());

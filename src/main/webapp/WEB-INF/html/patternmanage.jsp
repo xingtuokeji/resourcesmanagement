@@ -317,8 +317,7 @@
                         <div class="form-group">
                             <label for="pattern-desc" class="col-sm-4 control-label">模型描述：</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control" id="pattern-desc" name="patternDesc">
-                                </textarea>
+                                <textarea class="form-control" id="pattern-desc" name="patternDesc"></textarea>
                             </div>
                         </div>
                         <div class="form-group">

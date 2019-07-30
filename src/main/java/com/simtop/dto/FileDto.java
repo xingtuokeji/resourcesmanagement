@@ -12,6 +12,15 @@ public class FileDto {
     private String uploadFileName;
     private String uploadPath;//文件上传目录
     private String fileUploader;
+    private String apiDesc;
+
+    public String getApiDesc() {
+        return apiDesc;
+    }
+
+    public void setApiDesc(String apiDesc) {
+        this.apiDesc = apiDesc;
+    }
 
     public String getFileUploader() {
         return fileUploader;
@@ -70,6 +79,7 @@ public class FileDto {
                 ", uploadFileName='" + uploadFileName + '\'' +
                 ", uploadPath='" + uploadPath + '\'' +
                 ", fileUploader='" + fileUploader + '\'' +
+                ", apiDesc='" + apiDesc + '\'' +
                 '}';
     }
 }

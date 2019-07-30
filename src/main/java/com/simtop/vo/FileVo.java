@@ -10,6 +10,15 @@ public class FileVo {
     private String fileName;
     private CommonsMultipartFile file;
     private String fileUploader;
+    private String apiDesc;
+
+    public String getApiDesc() {
+        return apiDesc;
+    }
+
+    public void setApiDesc(String apiDesc) {
+        this.apiDesc = apiDesc;
+    }
 
     public String getFileUploader() {
         return fileUploader;
@@ -50,6 +59,7 @@ public class FileVo {
                 ", fileName='" + fileName + '\'' +
                 ", file=" + file +
                 ", fileUploader='" + fileUploader + '\'' +
+                ", apiDesc='" + apiDesc + '\'' +
                 '}';
     }
 }

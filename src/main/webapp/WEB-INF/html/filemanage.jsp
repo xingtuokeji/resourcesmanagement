@@ -115,6 +115,22 @@
             );
         }
 
+        function showDesc(id){
+            $.post(
+                '<%=request.getContextPath()%>/backend/file/findById',
+                {'id':id},
+                function(result){
+                    if(result.success){
+                        console.log("前台获取数据成功！");
+                        $('#id1').val(result.data.id);
+                        $('#fileName1').val(result.data.fileName);
+                        $('#apiDesc1').val(result.data.apiDesc);
+                        //alert(result.data.apiDesc)
+                    }
+                }
+            );
+        }
+
         //显示删除素材模态框
         function showDeleteModal(id){
             $('#deleteImageId').val(id);
@@ -176,6 +192,7 @@
                         <td class="text-center">
                             <input type="button" class="btn btn-warning btn-sm doProModify" value="修改" onclick="showFile(${file.id})">
                             <a id="download" type="button" class="btn btn-success btn-sm doProDelete" href="${file.fileUrl}">下载</a>
+                            <input type="button" class="btn btn-danger btn-sm showDescModel" value="项目详情" onclick="showDesc(${file.id})">
                         </td>
                     </tr>
                 </c:forEach>
@@ -207,6 +224,13 @@
                                 <input type="text" class="form-control" id="image-name" name="fileName">
                             </div>
                         </div>
+                        <!--新增文档详情介绍-->
+                        <div class="form-group">
+                            <label for="apiDesc" class="col-sm-4 control-label">文档目的：</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" id="apiDesc" name="apiDesc"></textarea>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="image_sc" class="col-sm-4 control-label">文件：</label>
                             <div class="col-sm-8">
@@ -215,6 +239,7 @@
                                 </a>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -273,6 +298,50 @@
     </div>
 </div>
 <!-- 修改素材 end -->
+
+<!--显示api详情信息-->
+<div class="modal fade" tabindex="-1" id="myApiModel">
+    <!-- 窗口声明 -->
+    <div class="modal-dialog modal-lg">
+        <!-- 内容声明 -->
+        <form action="<%=request.getContextPath()%>/backend/file/modify" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="modal-content">
+                <!-- 头部、主体、脚注 -->
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">API文档详情</h4>
+                </div>
+                <div class="modal-body text-center row">
+                    <div class="col-sm-8">
+                        <input type="hidden" name="pageNum" value="${pageInfo.pageNum}">
+                        <div class="form-group">
+                            <label for="id1" class="col-sm-4 control-label">文件编号：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="id1" name="id" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fileName1" class="col-sm-4 control-label">文件名称：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="fileName1" name="fileName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="apiDesc1" class="col-sm-4 control-label">API相关项目详情：</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" id="apiDesc1" name="apiDesc"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<%--                <div class="modal-footer">--%>
+<%--                    <button class="btn btn-primary updatePro" type="submit">修改</button>--%>
+<%--                    <button class="btn btn-primary cancel" data-dismiss="modal">取消</button>--%>
+<%--                </div>--%>
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- 确认删除 start -->
 <div class="modal fade" tabindex="-1" id="deleteImageModal">
